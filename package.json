@@ -38,7 +38,7 @@
     "gulp-react": "~0.1.2"
   },
   "scripts": {
-    "test": "NODE_ENV=testing mocha --reporter spec --compilers coffee:coffee-script/register ./test/*"
+    "test": "NODE_ENV=testing mocha --reporter spec --compilers coffee:coffee-script/register ./server/test/*"
   },
   "engines": {
     "node": ">= 0.9"

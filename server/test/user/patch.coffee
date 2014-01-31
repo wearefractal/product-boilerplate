@@ -1,12 +1,13 @@
 request = require 'supertest'
-app = require '../../server/start'
-config = require '../../server/config'
+app = require '../../start'
+config = require '../../config'
+db = require '../../database'
 setup = require '../setup'
 
 should = require 'should'
 require 'mocha'
 
-describe 'User GET', ->
+describe 'User PATCH', ->
   beforeEach setup.db.wipe
   beforeEach setup.user.create
   beforeEach setup.passport.hook
@@ -14,15 +15,30 @@ describe 'User GET', ->
 
   it 'should respond with 403 when not logged in', (done) ->
     request(app)
-      .get("#{config.apiPrefix}/users/123")
+      .patch("#{config.apiPrefix}/users/123")
       .set('Accept', 'application/json')
       .expect(403, done)
 
-  it 'should respond with 200 and information when logged in', (done) ->
+  it 'should respond with 403 when logged in but not owner', (done) ->
+    mod =
+      test: "hi"
+
     request(app)
-      .get("#{config.apiPrefix}/users/#{setup.user.id}")
+      .patch("#{config.apiPrefix}/users/#{setup.user.id}")
+      .set('Accept', 'application/json')
+      .query(setup.user.createQuery(setup.newId()))
+      .send(mod)
+      .expect(403, done)
+
+  it 'should respond with 200 and information when logged in and roster change', (done) ->
+    mod =
+      test: "hi"
+
+    request(app)
+      .patch("#{config.apiPrefix}/users/#{setup.user.id}")
       .set('Accept', 'application/json')
       .query(setup.user.createQuery(setup.user.id))
+      .send(mod)
       .expect('Content-Type', /json/)
       .expect(200)
       .end (err, res) ->
@@ -30,5 +46,5 @@ describe 'User GET', ->
         should.exist res.body
         res.body.should.be.type 'object'
         res.body._id.should.equal setup.user.id
-        should.exist res.body.token, 'should show user token'
+        res.body.test.should.equal mod.test
         done()

@@ -25,7 +25,6 @@ module.exports = (req, res, next) ->
   delete req.body.created
   delete req.body.lastModified
 
-  # we only allow them to modify the roster attribute
   q = User.findById req.params.id
   q.exec (err, user) ->
     return next err if err?
