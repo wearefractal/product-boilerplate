@@ -1,0 +1,9 @@
+{
+  "cache": true,
+  "database": "mongodb://localhost:27017/app_prod",
+  "facebook":{
+    "id":"damn",
+    "secret":"damn",
+    "callback":"http://example.net/auth/facebook/callback"
+  }
+}
