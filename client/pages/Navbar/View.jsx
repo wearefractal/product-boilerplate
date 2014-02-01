@@ -19,7 +19,7 @@ define(function(require){
                 <i className='search link icon'/>
               </div>
             </div>
-            {auth.loggedIn() ? <LogoutButton /> : <LoginButton />}
+            {auth ? <LogoutButton /> : <LoginButton />}
           </div>
         </nav>
       );

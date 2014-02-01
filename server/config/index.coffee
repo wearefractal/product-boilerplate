@@ -13,6 +13,6 @@ out = conf.snapshot
 delete out.$0
 
 # computed config here
-out.pubdir = join __dirname, '../public'
+out.pubdir = join __dirname, '../../public'
 
 module.exports = out

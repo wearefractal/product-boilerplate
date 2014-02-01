@@ -4,7 +4,7 @@ define(function(require){
   
   var LoginButton = React.createClass({
     click: function() {
-      auth.login();
+      window.location.href = "/auth/facebook";
     },
     render: function() {
       return (

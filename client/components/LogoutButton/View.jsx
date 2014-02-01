@@ -4,7 +4,7 @@ define(function(require){
 
   var LogoutButton = React.createClass({
     click: function() {
-      auth.logout();
+      window.location.href = "/logout";
     },
     render: function() {
       return (

@@ -31,6 +31,8 @@ define (require) ->
         view: opt.view
         args: ctx
       renderView nopt, ->
+        if opt.title?
+          document.title = opt.title
         next() if opt.continue
     return handler
 

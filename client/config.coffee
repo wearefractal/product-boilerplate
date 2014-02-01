@@ -2,7 +2,7 @@ packages = []
 
 packages.push
   name: 'app'
-  location: './'
+  location: '.'
 
 packages.push
   name: 'components'
