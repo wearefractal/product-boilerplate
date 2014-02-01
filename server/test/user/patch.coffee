@@ -21,7 +21,7 @@ describe 'User PATCH', ->
 
   it 'should respond with 403 when logged in but not owner', (done) ->
     mod =
-      test: "hi"
+      points: 100
 
     request(app)
       .patch("#{config.apiPrefix}/users/#{setup.user.id}")
@@ -32,7 +32,7 @@ describe 'User PATCH', ->
 
   it 'should respond with 200 and information when logged in and roster change', (done) ->
     mod =
-      test: "hi"
+      points: 100
 
     request(app)
       .patch("#{config.apiPrefix}/users/#{setup.user.id}")
@@ -46,5 +46,5 @@ describe 'User PATCH', ->
         should.exist res.body
         res.body.should.be.type 'object'
         res.body._id.should.equal setup.user.id
-        res.body.test.should.equal mod.test
+        res.body.points.should.equal 100
         done()

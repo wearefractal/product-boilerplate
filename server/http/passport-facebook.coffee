@@ -8,11 +8,13 @@ express = require 'express'
 
 handleFunction = (accessToken, refreshToken, profile, done) ->
   profile = profile._json
+  profile.fbid = profile.id
+  delete profile.id # dont copy that floppy
   profile.provider = 'facebook'
   profile.token = accessToken
   profile.location = profile.location?.name
 
-  User.findOne {id: profile.id}, (err, user) ->
+  User.findOne {fbid: profile.fbid}, (err, user) ->
     return done err if err?
     if user?
       user.set profile
@@ -28,9 +30,9 @@ passport.use new FacebookStrategy
 , handleFunction
 
 passport.serializeUser (user, cb) ->
-  cb null, user.id
+  cb null, user._id
 
-passport.deserializeUser (id, cb) ->
+passport.deserializeUser (_id, cb) ->
   User.findById _id, cb
 
 app.get '/auth/facebook', passport.authenticate 'facebook',

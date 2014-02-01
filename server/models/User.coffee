@@ -2,7 +2,7 @@
 
 User = new Schema
   # fb fields
-  id:
+  fbid:
     type: String
     required: true
     index:
@@ -57,6 +57,10 @@ User = new Schema
     default: Date.now
 
   # custom fields here
+  points:
+    type: Number
+    default: 0
+    min: 0
 
 User.set 'toJSON', {getters:true,virtuals:true}
 User.set 'toObject', {getters:true,virtuals:true}

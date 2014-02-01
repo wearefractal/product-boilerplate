@@ -9,8 +9,8 @@ module.exports = (req, res, next) ->
   return next new Error 'Invalid body' unless typeof req.body is 'object'
 
   # reserved fields
-  delete req.body.id
   delete req.body._id
+  delete req.body.id
   delete req.body.name
   delete req.body.first_name
   delete req.body.last_name

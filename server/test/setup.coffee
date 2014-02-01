@@ -32,7 +32,7 @@ setup =
     create: (cb) ->
       mock =
         _id: setup.user.id
-        id: 1234567
+        fbid: 1234567
         name: "Mike Adams"
         first_name: "Mike"
         last_name: "Adams"
