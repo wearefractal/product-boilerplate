@@ -3,9 +3,9 @@ cc = require 'config-chain'
 {argv} = require 'optimist'
 env = argv.env or process.env.NODE_ENV or 'development'
 
-configWithEnv = join __dirname, './config/', "#{env}.json"
-configDefault = join __dirname,  './config/', 'default.json'
-logFile = join __dirname, './logs/', "#{env}.log"
+configWithEnv = join __dirname, "#{env}.json"
+configDefault = join __dirname, 'default.json'
+logFile = join __dirname, "#{env}.log"
 
 conf = cc argv, cc.env('app_'), configWithEnv, configDefault, {logFile: logFile}
 

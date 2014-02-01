@@ -1,7 +1,7 @@
 passport = require 'passport'
 mongoose = require 'mongoose'
 
-db = require '../database'
+db = require '../db'
 config = require '../config'
 
 User = db.model 'User'

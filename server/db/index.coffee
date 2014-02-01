@@ -1,9 +1,9 @@
 async = require 'async'
 goosestrap = require 'goosestrap'
 {join} = require 'path'
-config = require './config'
+config = require '../config'
 
-modelDir = join __dirname, './models/*'
+modelDir = join __dirname, '../models/*'
 
 db = goosestrap config.database, modelDir
 

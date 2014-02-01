@@ -3,7 +3,7 @@ config = require './config'
 
 winston.log 'info', 'Starting with config', config
 
-db = require './database'
+db = require './db'
 
 app = require './http/express'
 auth = require './http/passport'

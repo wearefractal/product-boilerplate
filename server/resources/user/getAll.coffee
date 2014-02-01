@@ -1,5 +1,5 @@
-isObjectId = require '../../isObjectId'
-db = require '../../database'
+isObjectId = require '../../lib/isObjectId'
+db = require '../../db'
 User = db.model 'User'
 
 module.exports = (req, res, next) ->

@@ -1,4 +1,4 @@
-db = require '../database'
+db = require '../db'
 User = db.model 'User'
 passport = require "passport"
 FacebookStrategy = require("passport-facebook").Strategy

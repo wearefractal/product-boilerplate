@@ -1,7 +1,7 @@
 request = require 'supertest'
 app = require '../../start'
 config = require '../../config'
-db = require '../../database'
+db = require '../../db'
 setup = require '../setup'
 
 should = require 'should'

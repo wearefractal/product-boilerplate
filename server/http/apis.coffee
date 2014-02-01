@@ -1,6 +1,5 @@
 config = require '../config'
 app = require './express'
-db = require '../database'
 winston = require 'winston'
 pluralize = require 'pluralize'
 
