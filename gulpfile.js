@@ -17,9 +17,10 @@ var csso = require('gulp-csso');
 var reload = require('gulp-livereload');
 
 // live reload crap
+var nodemon = require('nodemon');
 var lr = require('tiny-lr');
 var lrServer = lr();
-lrServer.listen(35729, function(err){
+lrServer.listen(35729, function (err) {
   if (err) console.error(err);
 });
 
@@ -32,13 +33,31 @@ var paths = {
   html: './client/**/*.html'
 };
 
-gulp.task('server', function(cb){
-  var server = require('./server/start');
-  cb();
+gulp.task('server', function (cb) {
+  var idxPath = './public/index.html';
+  var reloader = reload(lrServer);
+
+  nodemon({
+    script: './server/start.js',
+    watch: ['./server'],
+    ext: 'js json coffee',
+    ignore: './server/test'
+  });
+  nodemon.once('start', cb);
+  nodemon.on('start', function () {
+    console.log('Server has started');
+    setTimeout(function(){
+      reloader.write({path:idxPath});
+    }, 750);
+  }).on('quit', function () {
+    console.log('Server has quit');
+  }).on('restart', function (files) {
+    console.log('Server restarted due to:', files);
+  });
 });
 
 // javascript
-gulp.task('coffee', function(){
+gulp.task('coffee', function () {
   return gulp.src(paths.coffee)
     .pipe(coffee())
     .pipe(gif(gutil.env.production, uglify()))
@@ -46,7 +65,7 @@ gulp.task('coffee', function(){
     .pipe(reload(lrServer));
 });
 
-gulp.task('jsx', function(){
+gulp.task('jsx', function () {
   return gulp.src(paths.jsx)
     .pipe(react())
     .pipe(gif(gutil.env.production, uglify()))
@@ -55,7 +74,7 @@ gulp.task('jsx', function(){
 });
 
 // styles
-gulp.task('stylus', function(){
+gulp.task('stylus', function () {
   return gulp.src(paths.stylus)
     .pipe(stylus())
     .pipe(concat('app.css'))
@@ -64,21 +83,21 @@ gulp.task('stylus', function(){
     .pipe(reload(lrServer));
 });
 
-gulp.task('html', function(){
+gulp.task('html', function () {
   return gulp.src(paths.html)
     .pipe(gif(gutil.env.production, htmlmin()))
     .pipe(gulp.dest('./public'))
     .pipe(reload(lrServer));
 });
 
-gulp.task('vendor', function(){
+gulp.task('vendor', function () {
   return gulp.src(paths.vendor)
     .pipe(gulp.dest('./public/vendor'))
     .pipe(reload(lrServer));
 });
 
-gulp.task('watch', function(){
-  Object.keys(gulp.tasks).forEach(function(t){
+gulp.task('watch', function () {
+  Object.keys(gulp.tasks).forEach(function (t) {
     if (!paths[t]) return; // no watch
     gulp.watch(paths[t], [t]);
   });
@@ -86,6 +105,6 @@ gulp.task('watch', function(){
 
 gulp.task('css', ['stylus']);
 gulp.task('js', ['coffee', 'jsx']);
-gulp.task('static', ['html','vendor']);
+gulp.task('static', ['html', 'vendor']);
 
-gulp.task('default', ['js','css','static','server','watch']);
+gulp.task('default', ['js', 'css', 'static', 'server', 'watch']);

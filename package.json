@@ -16,7 +16,7 @@
     "config-chain": "~1.1.8",
     "optimist": "~0.6.0",
     "coffee-script": "~1.7.0",
-    "pluralize": "0.0.7",
+    "pluralize": "~0.0.7",
     "require-dir": "~0.1.0"
   },
   "devDependencies": {
@@ -35,7 +35,8 @@
     "gulp-minify-html": "~0.1.0",
     "gulp-livereload": "~0.2.0",
     "tiny-lr": "~0.0.5",
-    "gulp-react": "~0.1.2"
+    "gulp-react": "~0.1.2",
+    "nodemon": "~1.0.14"
   },
   "scripts": {
     "test": "NODE_ENV=testing mocha --reporter spec --compilers coffee:coffee-script/register ./server/test/*"
