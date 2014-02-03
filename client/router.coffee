@@ -1,8 +1,8 @@
 define (require) ->
   app = require 'app/sugar'
 
-  app.route '*', 'middleware/log'
-  app.route '*',
+  app.use 'middleware/log'
+  app.use
     view: 'pages/Navbar/View'
     el: 'navbar'
 
@@ -12,7 +12,7 @@ define (require) ->
     el: 'content'
     continue: false
 
-  app.route '*',
+  app.use
     title: "APPNAME - Not found"
     view: 'pages/NotFound/View'
     el: 'content'

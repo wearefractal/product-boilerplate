@@ -14,7 +14,8 @@ define(function(require){
       var classes = cx({
         ui: true,
         items: true,
-        stackable: this.props.stackable
+        stackable: this.props.stackable,
+        connected: this.props.connected
       });
       classes += ' ' + this.props.perRow;
 

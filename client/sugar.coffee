@@ -41,6 +41,7 @@ define (require) ->
     page route, handlers...
     return app
 
+  app.use = app.route.bind null, '*'
   app.start = page.start
 
   return app

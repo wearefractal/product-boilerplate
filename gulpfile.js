@@ -34,6 +34,8 @@ var paths = {
 };
 
 gulp.task('server', function (cb) {
+  // total hack to make nodemon + livereload
+  // work sanely
   var idxPath = './public/index.html';
   var reloader = reload(lrServer);
 

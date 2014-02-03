@@ -10,24 +10,42 @@ define(function(require){
   var Index = React.createClass({
     render: function() {
       return (
-        <Container>
-          <PageHeader page='People' description='People you should follow'/>
+        <div id='index-page'>
+          <Container>
+            <PageHeader title='People' description='People you should follow' icon='settings'/>
 
-          <ItemList perRow='three' stackable={true}>
-            <ProfileCard username='zuck' points={100}/>
-            <ProfileCard username='ChrisHughes' points={50}/>
-            <ProfileCard username='moskov'/>
+            <ItemList perRow='four' stackable={true}>
+              <ProfileCard username='zuck' points={100}/>
+              <ProfileCard username='ChrisHughes' points={5}/>
+              <ProfileCard username='arie.hasit'/>
 
-            <ProfileCard username='zuck' points={100}/>
-            <ProfileCard username='ChrisHughes' points={50}/>
-            <ProfileCard username='moskov'/>
+              <ProfileCard username='zuck' points={100}/>
+              <ProfileCard username='ChrisHughes' points={5}/>
+              <ProfileCard username='arie.hasit'/>
 
-            <ProfileCard username='zuck' points={100}/>
-            <ProfileCard username='ChrisHughes' points={50}/>
-            <ProfileCard username='moskov'/>
-          </ItemList>
+              <ProfileCard username='zuck' points={100}/>
+              <ProfileCard username='ChrisHughes' points={5}/>
+              <ProfileCard username='arie.hasit'/>
 
-        </Container>
+              <ProfileCard username='zuck' points={100}/>
+              <ProfileCard username='ChrisHughes' points={5}/>
+              <ProfileCard username='arie.hasit'/>
+
+              <ProfileCard username='zuck' points={100}/>
+              <ProfileCard username='ChrisHughes' points={5}/>
+              <ProfileCard username='arie.hasit'/>
+
+              <ProfileCard username='zuck' points={100}/>
+              <ProfileCard username='ChrisHughes' points={5}/>
+              <ProfileCard username='arie.hasit'/>
+
+              <ProfileCard username='zuck' points={100}/>
+              <ProfileCard username='ChrisHughes' points={5}/>
+              <ProfileCard username='arie.hasit'/>
+            </ItemList>
+
+          </Container>
+        </div>
       );
     }
   });

@@ -32,12 +32,14 @@ define(function(require){
         label: true
       });
 
+      var likeText = this.state.liked ? 'You like this' : 'Click to like this';
+
       return (
         <div className='profile-card item'>
           <div className='image'>
             <ProfilePic username={this.props.username} />
             <a className={likeClasses} onClick={this.like}>
-              <i className='like icon'/>
+              <i className='like icon' title={likeText}/>
             </a>
           </div>
           <div className='content'>
