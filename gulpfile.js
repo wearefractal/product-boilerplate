@@ -29,6 +29,8 @@ var paths = {
   html: './client/**/*.html'
 };
 
+// im going to break this out into a module
+// so this will become about two lines
 gulp.task('server', function (cb) {
   // total hack to make nodemon + livereload
   // work sanely
