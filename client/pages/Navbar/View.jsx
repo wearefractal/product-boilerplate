@@ -1,9 +1,9 @@
 /** @jsx React.DOM */
 define(function(require){
-  var auth = require('app/auth');
+  var me = require('app/auth');
 
   var LoginButton = require('components/LoginButton/View');
-  var LogoutButton = require('components/LogoutButton/View');
+  var MenuAvatar = require('components/MenuAvatar/View');
 
   var Navbar = React.createClass({
     render: function() {
@@ -19,7 +19,7 @@ define(function(require){
                 <i className='search link icon'/>
               </div>
             </div>
-            {auth ? <LogoutButton /> : <LoginButton />}
+            {me ? <MenuAvatar user={me}/> : <LoginButton />}
           </div>
         </nav>
       );

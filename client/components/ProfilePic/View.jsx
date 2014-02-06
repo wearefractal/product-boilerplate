@@ -1,9 +1,15 @@
 /** @jsx React.DOM */
 define(function(require){
   var ProfilePic = React.createClass({
+    getDefaultProps: function() {
+      return {
+        size: 'large'
+      };
+    },
+
     render: function() {
-      return (
-        <img src={'http://graph.facebook.com/' + this.props.username + '/picture?type=large'} />
+      return this.transferPropsTo(
+        <img src={'http://graph.facebook.com/' + this.props.username + '/picture?type=' + this.props.size} />
       );
     }
   });

@@ -19,7 +19,7 @@ define(function(require){
       });
       classes += ' ' + this.props.perRow;
 
-      return (
+      return this.transferPropsTo(
         <div className={classes}>
           {this.props.children}
         </div>

@@ -36,7 +36,9 @@
     "gulp-livereload": "~1.0.1",
     "gulp-react": "~0.1.2",
     "nodemon": "~1.0.14",
-    "gulp-cached": "0.0.1"
+    "gulp-cached": "0.0.1",
+    "jshint-stylish": "~0.1.5",
+    "gulp-jshint": "~1.4.0"
   },
   "scripts": {
     "test": "NODE_ENV=testing mocha --reporter spec --compilers coffee:coffee-script/register ./server/test/*"

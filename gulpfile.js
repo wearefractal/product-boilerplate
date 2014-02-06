@@ -16,9 +16,11 @@ var uglify = require('gulp-uglify');
 var csso = require('gulp-csso');
 var reload = require('gulp-livereload');
 var cache = require('gulp-cached');
+var jshint = require('gulp-jshint');
 
 // misc
 var nodemon = require('nodemon');
+var stylish = require('jshint-stylish');
 
 // paths
 var paths = {
@@ -70,6 +72,8 @@ gulp.task('jsx', function () {
   return gulp.src(paths.jsx)
     .pipe(cache('jsx'))
     .pipe(react())
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish))
     .pipe(gif(gutil.env.production, uglify()))
     .pipe(gulp.dest('./public'))
     .pipe(reload());
