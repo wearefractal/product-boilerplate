@@ -26,17 +26,17 @@
     "supertest": "~0.9.0",
     "gulp": "~3.5.0",
     "gulp-util": "~2.2.13",
-    "gulp-coffee": "~1.3.0",
+    "gulp-coffee": "~1.4.1",
     "gulp-concat": "~2.1.7",
     "gulp-uglify": "~0.2.0",
     "gulp-csso": "~0.2.3",
     "gulp-stylus": "~0.0.11",
     "gulp-if": "~0.0.4",
     "gulp-minify-html": "~0.1.0",
-    "gulp-livereload": "~0.2.0",
-    "tiny-lr": "~0.0.5",
+    "gulp-livereload": "~1.0.1",
     "gulp-react": "~0.1.2",
-    "nodemon": "~1.0.14"
+    "nodemon": "~1.0.14",
+    "gulp-cached": "0.0.1"
   },
   "scripts": {
     "test": "NODE_ENV=testing mocha --reporter spec --compilers coffee:coffee-script/register ./server/test/*"

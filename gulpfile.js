@@ -15,14 +15,10 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var csso = require('gulp-csso');
 var reload = require('gulp-livereload');
+var cache = require('gulp-cached');
 
-// live reload crap
+// misc
 var nodemon = require('nodemon');
-var lr = require('tiny-lr');
-var lrServer = lr();
-lrServer.listen(35729, function (err) {
-  if (err) console.error(err);
-});
 
 // paths
 var paths = {
@@ -37,7 +33,7 @@ gulp.task('server', function (cb) {
   // total hack to make nodemon + livereload
   // work sanely
   var idxPath = './public/index.html';
-  var reloader = reload(lrServer);
+  var reloader = reload();
 
   nodemon({
     script: './server/start.js',
@@ -61,18 +57,20 @@ gulp.task('server', function (cb) {
 // javascript
 gulp.task('coffee', function () {
   return gulp.src(paths.coffee)
+    .pipe(cache('coffee'))
     .pipe(coffee())
     .pipe(gif(gutil.env.production, uglify()))
     .pipe(gulp.dest('./public'))
-    .pipe(reload(lrServer));
+    .pipe(reload());
 });
 
 gulp.task('jsx', function () {
   return gulp.src(paths.jsx)
+    .pipe(cache('jsx'))
     .pipe(react())
     .pipe(gif(gutil.env.production, uglify()))
     .pipe(gulp.dest('./public'))
-    .pipe(reload(lrServer));
+    .pipe(reload());
 });
 
 // styles
@@ -82,20 +80,22 @@ gulp.task('stylus', function () {
     .pipe(concat('app.css'))
     .pipe(gif(gutil.env.production, csso()))
     .pipe(gulp.dest('./public'))
-    .pipe(reload(lrServer));
+    .pipe(reload());
 });
 
 gulp.task('html', function () {
   return gulp.src(paths.html)
+    .pipe(cache('html'))
     .pipe(gif(gutil.env.production, htmlmin()))
     .pipe(gulp.dest('./public'))
-    .pipe(reload(lrServer));
+    .pipe(reload());
 });
 
 gulp.task('vendor', function () {
   return gulp.src(paths.vendor)
+    .pipe(cache('vendor'))
     .pipe(gulp.dest('./public/vendor'))
-    .pipe(reload(lrServer));
+    .pipe(reload());
 });
 
 gulp.task('watch', function () {
