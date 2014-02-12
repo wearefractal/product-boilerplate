@@ -6,9 +6,7 @@ define(function(require){
 
   var ProfileCard = React.createClass({
     getDefaultProps: function () {
-      return {
-        points: 0
-      };
+      return {};
     },
 
     getInitialState: function() {
@@ -37,14 +35,14 @@ define(function(require){
       return this.transferPropsTo(
         <div className='profile-card item'>
           <div className='image'>
-            <ProfilePic username={this.props.username} />
+            <ProfilePic username={this.props.username()} />
             <a className={likeClasses} onClick={this.like}>
               <i className='like icon' title={likeText}/>
             </a>
           </div>
           <div className='content'>
-            <div className='meta'>{this.props.points} points</div>
-            <div className='name'>{this.props.username}</div>
+            <div className='meta'>{this.props.points()} points</div>
+            <div className='name'>{this.props.username()}</div>
             <p className='description'>Wow such a great person</p>
           </div>
         </div>

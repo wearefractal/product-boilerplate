@@ -33,9 +33,7 @@ define(function(require){
             <ItemList perRow='four' stackable={true}>
 
               {
-                this.state.users.models.map(function(user){
-                  return <ProfileCard username={user.username()} points={user.points()}/>
-                })
+                this.state.users.models.map(ProfileCard)
               }
 
             </ItemList>
