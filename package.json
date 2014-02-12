@@ -33,7 +33,7 @@
     "gulp-stylus": "~0.0.11",
     "gulp-if": "~0.0.4",
     "gulp-minify-html": "~0.1.0",
-    "gulp-livereload": "~1.0.1",
+    "gulp-livereload": "~1.1.1",
     "gulp-react": "~0.1.2",
     "nodemon": "~1.0.14",
     "gulp-cached": "0.0.1",

@@ -12,11 +12,11 @@ describe 'User GET plural', ->
   beforeEach setup.passport.hook
   afterEach setup.passport.unhook
 
-  it 'should respond with 403 when not logged in', (done) ->
+  it 'should respond with 200 when not logged in', (done) ->
     request(app)
       .get("#{config.apiPrefix}/users")
       .set('Accept', 'application/json')
-      .expect(403, done)
+      .expect(200, done)
 
   it 'should respond with 200 and information when logged in', (done) ->
     request(app)
