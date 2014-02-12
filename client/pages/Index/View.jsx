@@ -25,17 +25,15 @@ define(function(require){
     },
 
     render: function () {
+      var userCards = this.state.users.models.map(ProfileCard);
+
       return (
         <div id='index-page'>
           <Container>
             <PageHeader title='People' description='People you should follow' icon='settings'/>
 
             <ItemList perRow='four' stackable={true}>
-
-              {
-                this.state.users.models.map(ProfileCard)
-              }
-
+              {userCards}
             </ItemList>
 
           </Container>
