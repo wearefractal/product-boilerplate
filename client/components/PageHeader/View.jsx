@@ -11,7 +11,7 @@ define(function(require){
       iconClasses += " "+this.props.icon;
 
       return this.transferPropsTo(
-        <h2 className='ui header'>
+        <h2 className='ui header page-header'>
           <i className={iconClasses}/>
           <div className='content'>
             {this.props.title}

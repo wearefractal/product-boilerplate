@@ -1,0 +1,39 @@
+#navbar
+  .ui.menu
+    background-color: #194E8E
+    color: #BBCEE4
+    border-radius: 0
+    box-shadow: none
+
+    .dropdown.icon
+      color: #ffffff
+
+    .main.item
+      color: #BBCEE4
+
+    .active.main.item
+      color: #ffffff
+      box-shadow: none
+
+    // disable hairlines
+    .item:before
+      background-image: none
+
+    .item
+      .ui.input
+        input
+          color: #BBCEE4
+          width: 90%
+          float: right
+          background-color: #053169
+          box-shadow: none
+          border-color: transparent
+          transition: width 0.25s
+
+        input:focus
+          background-color: white
+          width: 100%
+          color: #3B444F
+
+        .icon
+          color: #BAD3E7

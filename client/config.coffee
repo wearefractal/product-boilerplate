@@ -25,6 +25,6 @@ packages.push
   location: '/vendor'
 
 require
-  baseUrl: '.'
+  baseUrl: '/'
   packages: packages
 , ['app/main']

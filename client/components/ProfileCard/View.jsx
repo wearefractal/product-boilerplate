@@ -33,7 +33,7 @@ define(function(require){
       var likeText = this.state.liked ? 'You like this' : 'Click to like this';
 
       return this.transferPropsTo(
-        <div className='profile-card item'>
+        <div className='profile-card item' key={this.props.username()}>
           <div className='image'>
             <ProfilePic username={this.props.username()} />
             <a className={likeClasses} onClick={this.like}>
@@ -41,8 +41,7 @@ define(function(require){
             </a>
           </div>
           <div className='content'>
-            <div className='meta'>{this.props.points()} points</div>
-            <div className='name'>{this.props.username()}</div>
+            <div className='name'>{this.props.name()}</div>
             <p className='description'>Wow such a great person</p>
           </div>
         </div>

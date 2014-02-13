@@ -12,6 +12,18 @@ define (require) ->
     el: 'content'
     continue: false
 
+  app.route '/people',
+    title: "APPNAME - People"
+    view: 'pages/People/View'
+    el: 'content'
+    continue: false
+
+  app.route '/people/:id',
+    title: "APPNAME"
+    view: 'pages/People/View'
+    el: 'content'
+    continue: false
+
   app.use
     title: "APPNAME - Not found"
     view: 'pages/NotFound/View'
