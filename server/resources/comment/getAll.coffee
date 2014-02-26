@@ -23,6 +23,7 @@ module.exports = (req, res, next) ->
 
   q = Comment.find()
   q.populate 'from'
+  q.sort '-created'
   q.limit limit
   q.skip skip
 
