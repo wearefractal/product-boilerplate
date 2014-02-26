@@ -29,7 +29,7 @@ define(function(require){
           <div className='field'>
             <textarea value={this.state.text} onChange={this.handleTextChange}/>
           </div>
-          <div className='ui button teal submit labeled icon' onClick={this.create}>
+          <div className='ui fluid button teal submit labeled icon' onClick={this.create}>
             <i className='icon edit'/> Add Comment
           </div>
         </form>
