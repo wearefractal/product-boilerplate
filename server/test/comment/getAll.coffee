@@ -1,11 +1,11 @@
-request = require 'supertest'
+setup = require '../setup'
 app = require '../../start'
 config = require '../../config'
 db = require '../../db'
-setup = require '../setup'
 
 Comment = db.model 'Comment'
 
+request = require 'supertest'
 should = require 'should'
 require 'mocha'
 
@@ -24,7 +24,7 @@ fakeComment2 =
   rating: 3.5
 
 describe 'Comment GET plural', ->
-  beforeEach setup.db.wipe
+  beforeEach db.wipe
   beforeEach (cb) ->
     Comment.create [fakeComment, fakeComment2], cb
 

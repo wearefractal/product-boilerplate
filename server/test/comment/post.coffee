@@ -4,6 +4,7 @@ config = require '../../config'
 db = require '../../db'
 
 User = db.model 'User'
+Comment = db.model 'Comment'
 
 request = require 'supertest'
 should = require 'should'
@@ -18,43 +19,36 @@ mock =
   token: "sofake"
   username: "mikeadams"
 
-describe 'User PATCH', ->
+fakeComment =
+  to: setup.newId()
+  text: "wow"
+  rating: 3.5
+
+describe 'Comment POST plural', ->
   beforeEach db.wipe
   beforeEach (cb) ->
     User.create mock, cb
 
   it 'should respond with 403 when not logged in', (done) ->
     request(app)
-      .patch("#{config.apiPrefix}/users/123")
+      .post("#{config.apiPrefix}/comments")
       .set('Accept', 'application/json')
       .expect(403, done)
 
-  it 'should respond with 403 when logged in but not owner', (done) ->
-    mod =
-      points: 100
-
+  it 'should respond with 200 and comment created', (done) ->
     request(app)
-      .patch("#{config.apiPrefix}/users/#{mock._id}")
-      .set('Accept', 'application/json')
-      .query(setup.user.createQuery(setup.newId()))
-      .send(mod)
-      .expect(403, done)
-
-  it 'should respond with 200 and information when logged in and points change', (done) ->
-    mod =
-      points: 100
-
-    request(app)
-      .patch("#{config.apiPrefix}/users/#{mock._id}")
+      .post("#{config.apiPrefix}/comments")
       .set('Accept', 'application/json')
       .query(setup.user.createQuery(mock._id))
-      .send(mod)
+      .send(fakeComment)
       .expect('Content-Type', /json/)
       .expect(200)
       .end (err, res) ->
         return done err if err?
         should.exist res.body
-        res.body.should.be.type 'object'
-        res.body._id.should.equal mock._id
-        res.body.points.should.equal 100
+        should.exist res.body._id
+        res.body.to.should.equal fakeComment.to
+        res.body.from.should.equal mock._id
+        res.body.text.should.equal fakeComment.text
+        res.body.rating.should.equal fakeComment.rating
         done()

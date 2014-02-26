@@ -1,35 +1,46 @@
-request = require 'supertest'
+setup = require '../setup'
 app = require '../../start'
 config = require '../../config'
-setup = require '../setup'
+db = require '../../db'
 
+User = db.model 'User'
+
+request = require 'supertest'
 should = require 'should'
 require 'mocha'
 
+mock =
+  _id: setup.newId()
+  fbid: 1234567
+  name: "Mike Adams"
+  first_name: "Mike"
+  last_name: "Adams"
+  token: "sofake"
+  username: "mikeadams"
+
 describe 'User GET', ->
-  beforeEach setup.db.wipe
-  beforeEach setup.user.create
-  beforeEach setup.passport.hook
-  afterEach setup.passport.unhook
+  beforeEach db.wipe
+  beforeEach (cb) ->
+    User.create mock, cb
 
   it 'should respond with 200 and information when logged in', (done) ->
     request(app)
-      .get("#{config.apiPrefix}/users/#{setup.user.id}")
+      .get("#{config.apiPrefix}/users/#{mock._id}")
       .set('Accept', 'application/json')
-      .query(setup.user.createQuery(setup.user.id))
+      .query(setup.user.createQuery(mock._id))
       .expect('Content-Type', /json/)
       .expect(200)
       .end (err, res) ->
         return done err if err?
         should.exist res.body
         res.body.should.be.type 'object'
-        res.body._id.should.equal setup.user.id
+        res.body._id.should.equal mock._id
         should.exist res.body.token, 'should show user token'
         done()
 
   it 'should respond with 200 and information when not logged in', (done) ->
     request(app)
-      .get("#{config.apiPrefix}/users/#{setup.user.id}")
+      .get("#{config.apiPrefix}/users/#{mock._id}")
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -37,28 +48,28 @@ describe 'User GET', ->
         return done err if err?
         should.exist res.body
         res.body.should.be.type 'object'
-        res.body._id.should.equal setup.user.id
+        res.body._id.should.equal mock._id
         should.not.exist res.body.token, 'should not show user token'
         done()
 
   it 'should respond with 200 and information when logged in with username query', (done) ->
     request(app)
-      .get("#{config.apiPrefix}/users/#{setup.user.username}")
+      .get("#{config.apiPrefix}/users/#{mock.username}")
       .set('Accept', 'application/json')
-      .query(setup.user.createQuery(setup.user.id))
+      .query(setup.user.createQuery(mock._id))
       .expect('Content-Type', /json/)
       .expect(200)
       .end (err, res) ->
         return done err if err?
         should.exist res.body
         res.body.should.be.type 'object'
-        res.body._id.should.equal setup.user.id
+        res.body._id.should.equal mock._id
         should.exist res.body.token, 'should show user token'
         done()
 
   it 'should respond with 200 and information when not logged in with username query', (done) ->
     request(app)
-      .get("#{config.apiPrefix}/users/#{setup.user.username}")
+      .get("#{config.apiPrefix}/users/#{mock.username}")
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -66,6 +77,6 @@ describe 'User GET', ->
         return done err if err?
         should.exist res.body
         res.body.should.be.type 'object'
-        res.body._id.should.equal setup.user.id
+        res.body._id.should.equal mock._id
         should.not.exist res.body.token, 'should not show user token'
         done()
