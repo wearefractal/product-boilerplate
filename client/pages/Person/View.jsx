@@ -19,7 +19,7 @@ define(function(require){
       if (!this.state) return <Loader />;
 
       return (
-        <div id='person-page'>
+        <div className='person-page'>
           <Container>
             <BigProfileCard user={this.state.user}/>
             <UserComments user={this.state.user}/>

@@ -33,9 +33,11 @@ define(function(require){
 
       return this.transferPropsTo(
         <div className='ui comments'>
-          {comments.length > 0 ? comments : <h3>No comments</h3>}
+          <div className='ui segment'>
+            {comments.length > 0 ? comments : <h3>No comments</h3>}
+          </div>
 
-          {me ? <CommentBox/> : <LoginButton/>}
+          {me ? <div className='ui segment'><CommentBox user={this.props.user}/></div> : ''}
         </div>
       );
     }

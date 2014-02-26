@@ -1,8 +1,16 @@
 isObjectId = require '../../lib/isObjectId'
 db = require '../../db'
+async = require 'async'
 Comment = db.model 'Comment'
 
 maxLimit = 100
+
+filter = (comment, cb) ->
+  ncomment = comment.toJSON()
+  if ncomment.from?
+    delete ncomment.from.token
+    delete ncomment.from.__v
+  cb null, ncomment
 
 module.exports = (req, res, next) ->
   return res.status(400).end() unless req.query.from or req.query.to
@@ -14,6 +22,7 @@ module.exports = (req, res, next) ->
     return res.status(400).send(error: "Max limit is #{maxLimit}").end()
 
   q = Comment.find()
+  q.populate 'from'
   q.limit limit
   q.skip skip
 
@@ -24,4 +33,7 @@ module.exports = (req, res, next) ->
 
   q.exec (err, comments) ->
     return next err if err?
-    res.send comments
+
+    async.map comments, filter, (err, filtered) ->
+      return next err if err?
+      res.send filtered

@@ -16,7 +16,7 @@ define(function(require){
             <div className='content'>
               <a className='author'>{this.props.from.name()}</a>
               <div className='metadata'>
-                <div className='date'>{this.props.created()}</div>
+                <div className='date'>{moment(this.props.created()).fromNow()}</div>
                 <div className='stars'>
                   <i className='icon star'/>
                   <i className='icon star'/>

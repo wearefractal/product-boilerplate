@@ -8,7 +8,7 @@ define(function(require){
     render: function() {
       return this.transferPropsTo(
         <div className='item'>
-          <button className='ui teal button' onClick={this.click}>Login</button>
+          <button className='ui teal button login-button' onClick={this.click}>Login</button>
         </div>
       );
     }

@@ -1,5 +1,10 @@
 define (require) ->
+  User = require 'models/User'
+
   Comment = model 'Comment'
+
+  # plugins
+  Comment.use nestModel
 
   # schema
   Comment.attr '_id', 
@@ -9,11 +14,13 @@ define (require) ->
   Comment.attr 'to',
     type: 'string'
 
-  Comment.attr 'from',
-    type: 'object'
+  Comment.attr 'from', User
 
   Comment.attr 'created',
     type: 'date'
+
+  Comment.attr 'text',
+    type: 'string'
 
   Comment.attr 'rating',
     type: 'number'
