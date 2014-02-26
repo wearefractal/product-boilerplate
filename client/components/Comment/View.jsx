@@ -10,7 +10,7 @@ define(function(require){
     render: function() {
       return this.transferPropsTo(
         <div className='comment'>
-            <a className='avatar'>
+            <a className='avatar' href={'/people/'+this.props.from.username()}>
               <ProfilePic username={this.props.from.username()}/>
             </a>
             <div className='content'>
@@ -27,7 +27,6 @@ define(function(require){
               </div>
               <div className='text'>{this.props.text()}</div>
               <div className='actions'>
-                <a className='reply'>Reply</a>
                 <a className='delete'>Delete</a>
               </div>
             </div>
