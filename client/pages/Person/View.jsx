@@ -4,8 +4,8 @@ define(function(require){
   var User = require('models/User');
 
   var BigProfileCard = require('components/BigProfileCard/View');
+  var UserComments = require('components/UserComments/View');
   var Container = require('components/Container/View');
-  var PageHeader = require('components/PageHeader/View');
   var Loader = require('components/Loader/View');
 
   var Person = React.createClass({
@@ -22,6 +22,7 @@ define(function(require){
         <div id='person-page'>
           <Container>
             <BigProfileCard user={this.state.user}/>
+            <UserComments user={this.state.user}/>
           </Container>
         </div>
       );

@@ -23,7 +23,7 @@ define(function(require){
 
     render: function() {
       var likeClasses = cx({
-        active: this.state.liked,
+        red: this.state.liked,
         like: true,
         ui: true,
         corner: true,

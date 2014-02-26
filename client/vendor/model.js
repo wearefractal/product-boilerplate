@@ -3040,4 +3040,5 @@ if (typeof exports == "object") {
   define(function(){ return require("model"); });
 } else {
   this["model"] = require("model");
+  this["Collection"] = require("collection");
 }})();
