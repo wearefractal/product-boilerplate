@@ -20,7 +20,7 @@ define (require) ->
 
   app.route '/people/:id',
     title: "APPNAME"
-    view: 'pages/People/View'
+    view: 'pages/Person/View'
     el: 'content'
     continue: false
 

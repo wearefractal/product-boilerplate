@@ -31,7 +31,6 @@ define(function(require){
         <div id='people-page'>
           <Container>
             <PageHeader title='People' description='People you should follow' icon='users'/>
-
             <ItemList perRow='four' stackable={true}>
               {userCards}
             </ItemList>

@@ -46,4 +46,6 @@ setup =
     unhook: -> hooked = false
 
 setup.user.id = setup.newId()
+setup.user.username = "mikeadams"
+
 module.exports = setup

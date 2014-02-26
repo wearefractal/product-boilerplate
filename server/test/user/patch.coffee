@@ -30,7 +30,7 @@ describe 'User PATCH', ->
       .send(mod)
       .expect(403, done)
 
-  it 'should respond with 200 and information when logged in and roster change', (done) ->
+  it 'should respond with 200 and information when logged in and points change', (done) ->
     mod =
       points: 100
 

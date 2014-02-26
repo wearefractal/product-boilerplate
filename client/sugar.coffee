@@ -3,7 +3,7 @@ define (require) ->
 
   renderView = (opt={}, cb) ->
     if typeof opt.view is 'function'
-      opt.view = opt.view opt.arg
+      opt.view = opt.view opt.args
       return renderView opt, cb
     else if typeof opt.view is 'string'
       return require [opt.view], (vu) ->

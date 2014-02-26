@@ -34,12 +34,12 @@ define(function(require){
 
       return this.transferPropsTo(
         <div className='profile-card item' key={this.props.username()}>
-          <div className='image'>
+          <a className='image' href={'/people/'+this.props.username()}>
             <ProfilePic username={this.props.username()} />
             <a className={likeClasses} onClick={this.like}>
               <i className='like icon' title={likeText}/>
             </a>
-          </div>
+          </a>
           <div className='content'>
             <div className='name'>{this.props.name()}</div>
             <p className='description'>Wow such a great person</p>
