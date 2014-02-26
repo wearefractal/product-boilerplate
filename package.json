@@ -31,14 +31,14 @@
     "gulp-uglify": "^0.2.0",
     "gulp-csso": "^0.2.3",
     "gulp-stylus": "^0.0.11",
-    "gulp-if": "^0.0.4",
+    "gulp-if": "^0.0.5",
     "gulp-minify-html": "^0.1.0",
     "gulp-livereload": "^1.1.1",
-    "gulp-react": "^0.1.2",
     "nodemon": "^1.0.14",
-    "gulp-cached": "0.0.1",
+    "gulp-cached": "^0.0.2",
     "jshint-stylish": "^0.1.5",
-    "gulp-jshint": "^1.4.0"
+    "gulp-jshint": "^1.4.0",
+    "gulp-react": "^0.2.0"
   },
   "scripts": {
     "test": "NODE_ENV=testing mocha --reporter spec --compilers coffee:coffee-script/register ./server/test/*"
