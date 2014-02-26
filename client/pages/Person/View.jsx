@@ -3,34 +3,25 @@ define(function(require){
 
   var User = require('models/User');
 
+  var BigProfileCard = require('components/BigProfileCard/View');
   var Container = require('components/Container/View');
   var PageHeader = require('components/PageHeader/View');
+  var Loader = require('components/Loader/View');
 
   var Person = React.createClass({
-    getInitialState: function () {
-      return {
-        user: {}
-      };
-    },
-
     componentWillMount: function () {
-      var newUser = User({_id: this.props.params.id});
-      
-      newUser.update(function(){
-        this.setState({
-          user: newUser,
-          fetched: true
-        });
+      User.get(this.props.params.id, function(err, user){
+        this.setState({user: user});
       }.bind(this));
-
-      this.setState({user: newUser});
     },
 
     render: function () {
+      if (!this.state) return <Loader />;
+
       return (
         <div id='person-page'>
           <Container>
-            {this.state.user.username()}
+            <BigProfileCard user={this.state.user}/>
           </Container>
         </div>
       );
