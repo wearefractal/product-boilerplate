@@ -5,6 +5,16 @@ define(function(require){
 
     componentDidMount: function() {
       var el = $(this.getDOMNode());
+
+      if (this.props.onChange) {
+        el.rating({
+          onRate: this.props.onChange
+        });
+      }
+
+      if (this.props.rating) {
+        el.rating('set rating', this.props.rating);
+      }
       if (this.props.write) {
         el.rating('enable');
       } else {
@@ -14,7 +24,7 @@ define(function(require){
 
     render: function() {
       return this.transferPropsTo(
-        <div className='ui star rating' data-rating={this.props.rating}>
+        <div className='ui star rating'>
           <i className='icon'/>
           <i className='icon'/>
           <i className='icon'/>

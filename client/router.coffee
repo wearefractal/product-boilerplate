@@ -2,6 +2,8 @@ define (require) ->
   app = require 'app/sugar'
 
   app.use 'middleware/log'
+
+  # TODO: only render this once
   app.use
     view: 'pages/Navbar/View'
     el: 'navbar'

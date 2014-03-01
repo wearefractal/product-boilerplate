@@ -9,10 +9,11 @@ define(function(require){
     },
 
     render: function() {
+      var id = this.props.from.username() || this.props.from.fbid();
       return this.transferPropsTo(
-        <div className='comment'>
-            <a className='avatar' href={'/people/'+this.props.from.username()}>
-              <ProfilePic username={this.props.from.username()||this.props.from.fbid()}/>
+        <div className='comment' key={this.props._id()}>
+            <a className='avatar' href={'/people/'+id}>
+              <ProfilePic username={id}/>
             </a>
             <div className='content'>
               <a className='author'>{this.props.from.name()}</a>

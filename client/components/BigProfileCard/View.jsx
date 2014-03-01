@@ -32,11 +32,12 @@ define(function(require){
       });
 
       var likeText = this.state.liked ? 'You like this' : 'Click to like this';
+      var id = this.props.user.username() || this.props.user.fbid();
 
       return this.transferPropsTo(
         <div className='big-profile-card ui segment' key={this.props.user.fbid()}>
           <div className='ui left floated image'>
-            <ProfilePic username={(this.props.user.username()||this.props.user.fbid())} />
+            <ProfilePic username={id} />
             <a className={likeClasses} onClick={this.like}>
               <i className='like icon' title={likeText}/>
             </a>

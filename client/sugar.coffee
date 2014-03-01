@@ -10,6 +10,7 @@ define (require) ->
         opt.view = vu
         renderView opt, cb
     else
+      #console.log 'rendering', opt.view, 'into', opt.el
       React.renderComponent opt.view, opt.el
       return cb()
 
