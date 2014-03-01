@@ -11,7 +11,7 @@ define(function(require){
       return this.transferPropsTo(
         <div className='comment'>
             <a className='avatar' href={'/people/'+this.props.from.username()}>
-              <ProfilePic username={this.props.from.username()}/>
+              <ProfilePic username={this.props.from.username()||this.props.from.fbid()}/>
             </a>
             <div className='content'>
               <a className='author'>{this.props.from.name()}</a>

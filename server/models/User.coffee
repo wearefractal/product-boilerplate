@@ -47,6 +47,7 @@ User = new Schema
 
   location:
     type: String
+    default: 'Earth'
 
   created:
     type: Date

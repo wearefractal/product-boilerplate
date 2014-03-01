@@ -15,6 +15,7 @@ define(function(require){
       newComment.save(function(err, mod){
         console.log(err, mod);
       });
+      this.setState({text: ''});
     },
 
     handleTextChange: function(event) {

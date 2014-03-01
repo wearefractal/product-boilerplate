@@ -8,7 +8,7 @@ define(function(require){
       var user = this.props.user;
       return this.transferPropsTo(
         <div className='menu-avatar ui pointing top right simple dropdown item'>
-          <ProfilePic className='ui avatar image' username={user.username()} size='small' />
+          <ProfilePic className='ui avatar image' username={user.username()||user.fbid()} size='small' />
           <i className='dropdown icon'/>
           <div className='menu'>
             <a className='item'>

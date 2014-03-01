@@ -42,7 +42,10 @@ define(function(require){
           </a>
           <div className='content'>
             <div className='name'>{this.props.name()}</div>
-            <p className='description'>Wow such a great person</p>
+            <p className='description'>
+              <i className='map marker icon'/>
+              {this.props.location()}
+            </p>
           </div>
         </div>
       );

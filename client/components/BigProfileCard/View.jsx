@@ -44,7 +44,10 @@ define(function(require){
 
           <div className='info'>
             <h2 className='name'>{this.props.user.name()}</h2>
-            <p className='description'>Wow such a great person</p>
+            <p className='description'>
+              <i className='map marker icon'/>
+              {this.props.user.location()}
+            </p>
           </div>
         </div>
       );
