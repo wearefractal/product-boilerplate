@@ -43,7 +43,8 @@
     "nib": "^1.0.2"
   },
   "scripts": {
-    "test": "NODE_ENV=testing mocha --reporter spec --compilers coffee:coffee-script/register ./server/test/*"
+    "test": "NODE_ENV=testing mocha --recursive --reporter spec --compilers coffee:coffee-script/register ./server/test",
+    "build": "gulp --require coffee-script/register"
   },
   "engines": {
     "node": ">= 0.9"

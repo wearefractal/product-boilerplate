@@ -28,7 +28,7 @@ define(function(require){
 
     handleTextChange: function(event) {
       this.setState({
-        text: event.target.value.substr(0, 139)
+        text: event.target.value.substr(0, 139) // maxLen is 140
       });
     },
 
