@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 define(function(require){
   var Comment = require('models/Comment');
+  var Rating = require('components/Rating/View');
 
   var CommentBox = React.createClass({
     getInitialState: function() {
@@ -13,7 +14,7 @@ define(function(require){
         text: this.state.text
       });
       newComment.save(function(err, mod){
-        console.log(err, mod);
+        if (err) console.log(err);
       });
       this.setState({text: ''});
     },
@@ -28,6 +29,11 @@ define(function(require){
       return this.transferPropsTo(
         <form className='comment-box ui reply form'>
           <div className='field'>
+            <label>How would you rate this user?</label>
+            <Rating write={true}/>
+          </div>
+          <div className='field'>
+            <label>How would you describe your experience?</label>
             <textarea value={this.state.text} onChange={this.handleTextChange}/>
           </div>
           <div className='ui fluid button teal submit labeled icon' onClick={this.create}>

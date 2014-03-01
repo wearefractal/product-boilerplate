@@ -23,7 +23,7 @@ Comment = new Schema
   # custom fields here
   rating:
     type: Number
-    default: 5
+    default: 3
     max: 5
     min: 1
 
