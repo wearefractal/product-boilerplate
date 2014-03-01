@@ -82,7 +82,9 @@ gulp.task('jsx', function () {
 // styles
 gulp.task('stylus', function () {
   return gulp.src(paths.stylus)
-    .pipe(stylus())
+    .pipe(stylus({
+      use: ['nib']
+    }))
     .pipe(concat('app.css'))
     .pipe(gif(gutil.env.production, csso()))
     .pipe(gulp.dest('./public'))

@@ -14,11 +14,17 @@ handleFunction = (accessToken, refreshToken, profile, done) ->
   profile.token = accessToken
   profile.location = profile.location?.name
 
-  User.findOne {fbid: profile.fbid}, (err, user) ->
+  q =
+    $or: [
+      fbid: profile.fbid
+    ,
+      username: profile.username
+    ]
+
+  User.findOne q, (err, user) ->
     return done err if err?
     if user?
       user.set profile
-      #console.log 'updated user', user
       user.save done
     else
       User.create profile, done

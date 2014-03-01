@@ -11,9 +11,14 @@ module.exports = (req, res, next) ->
     q = User.findById req.params.id
     isOwner = req.user? and (String(req.user._id) is req.params.id)
   else
-    # look up by fb username
-    q = User.findOne username: req.params.id
-    isOwner = req.user? and (String(req.user.username) is req.params.id)
+    # look up by fb username/id
+    q = User.findOne
+      $or: [
+        username: req.params.id
+      ,
+        fbid: req.params.id
+      ]
+    isOwner = req.user? and (String(req.user.username) is req.params.id or String(req.user.fbid) is req.params.id)
 
   q.exec (err, user) ->
     return next err if err?
@@ -24,5 +29,5 @@ module.exports = (req, res, next) ->
     # security
     unless isOwner
       delete user.token
-    
+
     res.send user
