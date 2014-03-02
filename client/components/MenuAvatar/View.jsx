@@ -1,9 +1,12 @@
 /** @jsx React.DOM */
 define(function(require){
   var ProfilePic = require('components/ProfilePic/View');
-  var LogoutButton = require('components/LogoutButton/View');
 
   var MenuAvatar = React.createClass({
+    logout: function() {
+      window.location.href = '/logout';
+    },
+
     render: function() {
       var user = this.props.user;
       return this.transferPropsTo(
@@ -11,15 +14,18 @@ define(function(require){
           <ProfilePic className='ui avatar image' username={user.username()||user.fbid()} size='small' />
           <i className='dropdown icon'/>
           <div className='menu'>
-            <a className='item'>
+            <a className='item' href='/me/edit'>
               <i className='user icon'/>
               Edit Profile
             </a>
-            <a className='item'>
+            <a className='item' href='/me/'>
               <i className='settings icon'/>
               Change Settings
             </a>
-            <LogoutButton/>
+            <a className='item' onClick={this.logout}>
+              <i className='sign out icon'/>
+              Logout
+            </a>
           </div>
         </div>
       );
