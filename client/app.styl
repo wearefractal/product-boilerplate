@@ -1,3 +1,6 @@
+bgColor = #ecf0f1
+txtColor = #3B444F
+
 // force hardware accelerated css
 *
   backface-visibility: hidden
@@ -5,9 +8,14 @@
 html, body
   height: 100%
   width: 100%
-  background-color: #EEF1F3
-  color: #3B444F
+  background-color: bgColor
+  color: txtColor
 
 ::selection
-  background-color: #0fdecf
+  background-color: #2ecc71
   color: #fff
+
+.segment
+  border-radius: 0 !important
+  border: none !important
+  box-shadow: none !important

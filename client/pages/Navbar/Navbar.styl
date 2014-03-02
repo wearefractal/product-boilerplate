@@ -1,18 +1,25 @@
+normalColor = #34495e
+insetColor = #2c3e50
+
+textColor = #bdc3c7
+activeTextColor = #ecf0f1
+
+inputColor = #3B444F
+
 #navbar
   .ui.menu
-    background-color: #194E8E
-    color: #BBCEE4
+    background-color: normalColor
     border-radius: 0
     box-shadow: none
 
     .dropdown.icon
-      color: #ffffff
+      color: textColor
 
     .main.item
-      color: #BBCEE4
+      color: textColor
 
     .active.main.item
-      color: #ffffff
+      color: activeTextColor
       box-shadow: none
 
     // disable hairlines
@@ -22,18 +29,19 @@
     .item
       .ui.input
         input
-          color: #BBCEE4
+          color: textColor
+          background-color: insetColor
           width: 90%
           float: right
-          background-color: #053169
           box-shadow: none
           border-color: transparent
           transition: width 0.25s
 
         input:focus
-          background-color: white
+          background-color: #fff
           width: 100%
-          color: #3B444F
+          color: inputColor
 
+        // TODO: change when input is focused
         .icon
-          color: #BAD3E7
+          color: textColor
