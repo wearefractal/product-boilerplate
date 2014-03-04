@@ -15,6 +15,7 @@ define(function(require){
 
     getInitialState: function() {
       return {
+        commented: false,
         comments: {
           models: []
         }
@@ -27,6 +28,15 @@ define(function(require){
       }.bind(this));
     },
 
+    onSubmitComment: function (comment) {
+      // add to page
+      this.state.comments.models.unshift(comment);
+
+      this.setState({
+        comments: this.state.comments,
+        commented: true
+      });
+    },
 
     render: function() {
       var comments = this.state.comments.models.map(CommentView);
@@ -37,7 +47,7 @@ define(function(require){
             {comments.length > 0 ? comments : <h3>No comments</h3>}
           </div>
 
-          {me ? <div className='ui segment'><CommentBox user={this.props.user}/></div> : ''}
+          {(me && !this.state.commented) ? <div className='ui segment'><CommentBox user={this.props.user} onSubmit={this.onSubmitComment}/></div> : ''}
         </div>
       );
     }

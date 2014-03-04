@@ -15,6 +15,12 @@ define(function(require){
       }.bind(this));
     },
 
+    onSubmitComment: function(comment) {
+      this.setState({
+        commented: true
+      });
+    },
+
     render: function () {
       if (!this.state) return <Loader />;
 

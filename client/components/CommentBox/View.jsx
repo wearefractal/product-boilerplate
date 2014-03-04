@@ -2,6 +2,8 @@
 define(function(require){
   var Comment = require('models/Comment');
   var Rating = require('components/Rating/View');
+  var Loader = require('components/Loader/View');
+  var me = require('app/auth');
 
   var CommentBox = React.createClass({
     getInitialState: function() {
@@ -18,11 +20,21 @@ define(function(require){
         text: this.state.text,
         rating: this.state.rating
       });
-      newComment.save(function(err, mod){
+      newComment.save(function(err, res){
         if (err) console.log(err);
-      });
+
+        this.setState({
+          pending: false,
+          done: true
+        });
+
+        newComment.from = me;
+
+        if (this.props.onSubmit) this.props.onSubmit(newComment);
+
+      }.bind(this));
       this.setState({
-        done: true
+        pending: true
       });
     },
 
@@ -39,11 +51,6 @@ define(function(require){
     },
 
     render: function() {
-      if (this.state.done) {
-        return this.transferPropsTo(
-          <p>Thanks for rating!</p>
-        );
-      }
       return this.transferPropsTo(
         <form className='comment-box ui reply form'>
           <div className='inline field'>
@@ -52,9 +59,9 @@ define(function(require){
           </div>
           <div className='field'>
             <label>How would you describe your experience?</label>
-            <textarea value={this.state.text} onChange={this.handleTextChange}/>
+            <textarea value={this.state.text} onChange={this.handleTextChange} disabled={this.state.pending}/>
           </div>
-          <div className='ui fluid button teal submit labeled icon' onClick={this.create}>
+          <div className='ui fluid button teal submit labeled icon' onClick={this.create} disabled={this.state.pending}>
             <i className='icon edit'/> Add Comment
           </div>
         </form>

@@ -1,26 +1,26 @@
 # core
-gulp = require('gulp')
-gutil = require('gulp-util')
+gulp = require 'gulp'
+gutil = require 'gulp-util'
 
 # stream utilities
-gif = require('gulp-if')
-path = require('path')
+gif = require 'gulp-if'
+path = require 'path'
 
 # plugins
-htmlmin = require('gulp-minify-html')
-react = require('gulp-react')
-coffee = require('gulp-coffee')
-stylus = require('gulp-stylus')
-concat = require('gulp-concat')
-uglify = require('gulp-uglify')
-csso = require('gulp-csso')
-reload = require('gulp-livereload')
-cache = require('gulp-cached')
-jshint = require('gulp-jshint')
+htmlmin = require 'gulp-minify-html'
+react = require 'gulp-react'
+coffee = require 'gulp-coffee'
+stylus = require 'gulp-stylus'
+concat = require 'gulp-concat'
+uglify = require 'gulp-uglify'
+csso = require 'gulp-csso'
+reload = require 'gulp-livereload'
+cache = require 'gulp-cached'
+jshint = require 'gulp-jshint'
 
 # misc
-nodemon = require('nodemon')
-stylish = require('jshint-stylish')
+nodemon = require 'nodemon'
+stylish = require 'jshint-stylish'
 
 # paths
 paths =
