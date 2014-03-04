@@ -8,7 +8,6 @@ define(function(require){
   var Loader = require('components/Loader/View');
 
   var ProfileCard = require('components/ProfileCard/View');
-  var PageHeader = require('components/PageHeader/View');
 
   var People = React.createClass({
 
@@ -26,7 +25,6 @@ define(function(require){
       return (
         <div id='people-page'>
           <Container>
-            <PageHeader title='People' description='People you should follow' icon='users'/>
             <ItemList perRow='three' stackable={true}>
               {userCards}
             </ItemList>
