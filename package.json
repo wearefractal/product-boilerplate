@@ -18,8 +18,7 @@
     "coffee-script": "^1.7.0",
     "pluralize": "^0.0.7",
     "require-dir": "^0.1.0",
-    "async": "^0.2.10",
-    "gulp-autowatch": "0.0.1"
+    "async": "^0.2.10"
   },
   "devDependencies": {
     "mocha": "^1.17.0",
@@ -42,6 +41,7 @@
     "gulp-jshint": "^1.4.0",
     "gulp-react": "^0.2.0",
     "gulp-jsonlint": "0.0.3",
+    "gulp-autowatch": "0.0.1",
     "nib": "^1.0.2"
   },
   "scripts": {
