@@ -2,7 +2,6 @@
 define(function(require){
   var Comment = require('models/Comment');
   var Rating = require('components/Rating/View');
-  var Loader = require('components/Loader/View');
   var me = require('app/auth');
 
   var CommentBox = React.createClass({

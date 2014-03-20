@@ -5,11 +5,13 @@ define(function(require){
 
   var Container = require('components/Container/View');
   var ItemList = require('components/ItemList/View');
-  var Loader = require('components/Loader/View');
 
   var ProfileCard = require('components/ProfileCard/View');
 
   var People = React.createClass({
+    getInitialState: function() {
+      return {users: {models: []}};
+    },
 
     componentWillMount: function () {
       User.all(function(err, users){
@@ -18,9 +20,9 @@ define(function(require){
     },
 
     render: function () {
-      if (!this.state) return <Loader />;
-
-      var userCards = this.state.users.models.map(ProfileCard);
+      var userCards = this.state.users.models.map(function(user){
+        return ProfileCard({user: user})
+      });
 
       return (
         <div id='people-page'>

@@ -5,23 +5,15 @@ define(function(require){
   var ProfilePic = require('components/ProfilePic/View');
 
   var ProfileCard = React.createClass({
-    getDefaultProps: function () {
-      return {};
-    },
-
     render: function() {
-      var id = this.props.username() || this.props.fbid();
       return this.transferPropsTo(
-        <div className='profile-card item' key={this.props.fbid()}>
-          <a className='image' href={'/people/'+id}>
-            <ProfilePic username={id} />
+        <div className='profile-card item' key={this.props.user._id()}>
+          <a className='image' href={'/people/'+this.props.user.prettyName()}>
+            <ProfilePic user={this.props.user} />
           </a>
           <div className='content'>
-            <div className='name'>{this.props.name()}</div>
-            <p className='description'>
-              <i className='map marker icon'/>
-              {this.props.location()}
-            </p>
+            <div className='name'>{this.props.user.name()}</div>
+            <p className='description'>{this.props.user.location()}</p>
           </div>
         </div>
       );

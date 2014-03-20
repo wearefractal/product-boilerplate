@@ -9,7 +9,7 @@ define(function(require){
 
     render: function() {
       return this.transferPropsTo(
-        <img src={'http://graph.facebook.com/' + (this.props.username || this.props.fbid) + '/picture?type=' + this.props.size} />
+        <img src={'http://graph.facebook.com/'+this.props.user.prettyName()+'/picture?type='+this.props.size} />
       );
     }
   });

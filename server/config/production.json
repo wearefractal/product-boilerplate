@@ -5,5 +5,5 @@
     "id":"270934053064847",
     "secret":"8b7d87a38fb767bf9402e9ae2029a645",
     "callback":"http://example.net/auth/facebook/callback"
-  },
+  }
 }

@@ -17,10 +17,12 @@ csso = require 'gulp-csso'
 reload = require 'gulp-livereload'
 cache = require 'gulp-cached'
 jshint = require 'gulp-jshint'
+jsonlint = require 'gulp-jsonlint'
 
 # misc
 nodemon = require 'nodemon'
 stylish = require 'jshint-stylish'
+autowatch = require 'gulp-autowatch'
 
 # paths
 paths =
@@ -29,7 +31,7 @@ paths =
   jsx: './client/**/*.jsx'
   stylus: './client/**/*.styl'
   html: './client/**/*.html'
-
+  config: './server/config/*.json'
 
 # im going to break this out into a module
 # so this will become about two lines
@@ -77,6 +79,11 @@ gulp.task 'jsx', ->
     .pipe(gulp.dest('./public'))
     .pipe reload()
 
+gulp.task 'config', ->
+  gulp.src(paths.config)
+    .pipe(cache('config'))
+    .pipe(jsonlint())
+    .pipe(jsonlint.reporter())
 
 # styles
 gulp.task 'stylus', ->
@@ -100,15 +107,11 @@ gulp.task 'vendor', ->
     .pipe(gulp.dest('./public/vendor'))
     .pipe reload()
 
-gulp.task 'watch', (cb) ->
-  for t, v of gulp.tasks
-    continue unless paths[t]
-    gulp.watch paths[t], [t]
-
-  cb()
+gulp.task 'watch', ->
+  autowatch gulp, paths
 
 
 gulp.task 'css', ['stylus']
 gulp.task 'js', ['coffee', 'jsx']
 gulp.task 'static', ['html', 'vendor']
-gulp.task 'default', ['js', 'css', 'static', 'server', 'watch']
+gulp.task 'default', ['js', 'css', 'static', 'server', 'config', 'watch']

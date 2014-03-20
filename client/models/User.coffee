@@ -2,23 +2,26 @@ define (require) ->
   User = model 'User'
 
   # schema
-  User.attr '_id', 
+  User.attr '_id',
     type: 'string'
     required: true
 
-  User.attr 'fbid', 
+  User.attr 'fbid',
     type: 'string'
     required: true
 
-  User.attr 'name', 
+  User.attr 'prettyName',
     type: 'string'
     required: true
 
-  User.attr 'username', 
+  User.attr 'name',
     type: 'string'
     required: true
 
-  User.attr 'location', 
+  User.attr 'username',
+    type: 'string'
+
+  User.attr 'location',
     type: 'string'
 
   User.attr 'created',

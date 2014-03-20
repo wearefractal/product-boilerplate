@@ -14,4 +14,8 @@ app.use express.session
   secret: config.cookieSecret
   maxAge: 31536000000
 
+app.use (err, req, res, next) ->
+  console.error err.stack
+  res.send 500, 'Something broke!'
+
 module.exports = app

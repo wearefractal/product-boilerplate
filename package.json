@@ -18,7 +18,8 @@
     "coffee-script": "^1.7.0",
     "pluralize": "^0.0.7",
     "require-dir": "^0.1.0",
-    "async": "^0.2.10"
+    "async": "^0.2.10",
+    "gulp-autowatch": "0.0.1"
   },
   "devDependencies": {
     "mocha": "^1.17.0",
@@ -40,11 +41,13 @@
     "jshint-stylish": "^0.1.5",
     "gulp-jshint": "^1.4.0",
     "gulp-react": "^0.2.0",
+    "gulp-jsonlint": "0.0.3",
     "nib": "^1.0.2"
   },
   "scripts": {
     "test": "NODE_ENV=testing mocha --recursive --reporter spec --compilers coffee:coffee-script/register ./server/test",
-    "build": "gulp --require coffee-script/register"
+    "build": "gulp --require coffee-script/register",
+    "start": "node ./server/start.js"
   },
   "engines": {
     "node": ">= 0.9"

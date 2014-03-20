@@ -6,7 +6,6 @@ define(function(require){
   var LoginButton = require('components/LoginButton/View');
   var CommentBox = require('components/CommentBox/View');
   var CommentView = require('components/Comment/View');
-  var Loader = require('components/Loader/View');
 
   var UserComments = React.createClass({
     getDefaultProps: function () {

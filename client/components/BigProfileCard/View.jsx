@@ -10,12 +10,10 @@ define(function(require){
     },
 
     render: function() {
-      var id = this.props.user.username() || this.props.user.fbid();
-
       return this.transferPropsTo(
-        <div className='big-profile-card ui segment' key={this.props.user.fbid()}>
+        <div className='big-profile-card ui segment' key={this.props.user._id()}>
           <div className='ui left floated image'>
-            <ProfilePic username={id} />
+            <ProfilePic user={this.props.user} />
           </div>
 
           <div className='info'>

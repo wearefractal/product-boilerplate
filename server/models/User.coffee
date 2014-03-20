@@ -63,8 +63,11 @@ User = new Schema
     default: 0
     min: 0
 
-User.set 'toJSON', {getters:true,virtuals:true}
-User.set 'toObject', {getters:true,virtuals:true}
+User.virtual('prettyName').get ->
+  return @username or @fbid
+
+User.set 'toJSON', {getters:true, virtuals:true}
+User.set 'toObject', {getters:true, virtuals:true}
 User.set 'strict', true
 
 User.pre 'save', (next) ->

@@ -6,7 +6,6 @@ define(function(require){
   var BigProfileCard = require('components/BigProfileCard/View');
   var UserComments = require('components/UserComments/View');
   var Container = require('components/Container/View');
-  var Loader = require('components/Loader/View');
 
   var Person = React.createClass({
     componentWillMount: function () {
@@ -22,14 +21,21 @@ define(function(require){
     },
 
     render: function () {
-      if (!this.state) return <Loader />;
+      if (!this.state) return <div className='person-page'/>;
 
       return (
         <div className='person-page'>
           <Container>
             <BigProfileCard user={this.state.user}/>
-            <UserComments user={this.state.user}/>
           </Container>
+          <div className='ui two column stackable grid'>
+            <div className='column'>
+              <UserComments user={this.state.user}/>
+            </div>
+            <div className='column'>
+              <UserComments user={this.state.user}/>
+            </div>
+          </div>
         </div>
       );
     }
