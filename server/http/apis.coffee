@@ -1,5 +1,5 @@
-config = require '../../config'
-app = require '../express'
+config = require '../config'
+app = require './express'
 winston = require 'winston'
 pluralize = require 'pluralize'
 
