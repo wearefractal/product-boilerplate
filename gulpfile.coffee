@@ -18,6 +18,7 @@ reload = require 'gulp-livereload'
 cache = require 'gulp-cached'
 jshint = require 'gulp-jshint'
 jsonlint = require 'gulp-jsonlint'
+nib = require 'nib'
 
 # misc
 nodemon = require 'nodemon'
@@ -88,7 +89,7 @@ gulp.task 'config', ->
 # styles
 gulp.task 'stylus', ->
   gulp.src(paths.stylus)
-    .pipe(stylus(use: ['nib']))
+    .pipe(stylus(use: nib()))
     .pipe(concat('app.css'))
     .pipe(gif(gutil.env.production, csso()))
     .pipe(gulp.dest('./public'))

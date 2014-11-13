@@ -17,6 +17,7 @@
   "node": true,
   "mocha": true,
   "globals": {
+    "React": true,
     "describe": false,
     "it": false,
     "before": false,
