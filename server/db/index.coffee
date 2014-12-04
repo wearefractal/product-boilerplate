@@ -20,7 +20,7 @@ db.wipe = (cb) ->
   return db
 
 db.dump = (modelName, cb) ->
-  if typeof modelName is "string"
+  if typeof modelName is 'string'
     Model = db.model modelName
   else
     Model = modelName
@@ -28,7 +28,7 @@ db.dump = (modelName, cb) ->
   return db
 
 db.import = (modelName, models, cb) ->
-  if typeof modelName is "string"
+  if typeof modelName is 'string'
     Model = db.model modelName
   else
     Model = modelName

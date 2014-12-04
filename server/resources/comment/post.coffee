@@ -13,4 +13,4 @@ module.exports = (req, res, next) ->
  
   Comment.create req.body, (err, comment) ->
     return next err if err?
-    res.send comment.toJSON()
+    res.json comment

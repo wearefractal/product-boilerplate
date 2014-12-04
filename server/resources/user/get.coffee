@@ -30,4 +30,4 @@ module.exports = (req, res, next) ->
     unless isOwner
       delete user.token
 
-    res.send user
+    res.json user

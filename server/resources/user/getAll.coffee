@@ -11,4 +11,4 @@ module.exports = (req, res, next) ->
 
   q.exec (err, users) ->
     return next err if err?
-    res.send users
+    res.json users

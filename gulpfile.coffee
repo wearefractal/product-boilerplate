@@ -8,7 +8,6 @@ path = require 'path'
 
 # plugins
 htmlmin = require 'gulp-minify-html'
-react = require 'gulp-react'
 coffee = require 'gulp-coffee'
 stylus = require 'gulp-stylus'
 concat = require 'gulp-concat'
@@ -18,18 +17,39 @@ reload = require 'gulp-livereload'
 cache = require 'gulp-cached'
 jshint = require 'gulp-jshint'
 jsonlint = require 'gulp-jsonlint'
-nib = require 'nib'
+autoprefixer = require 'autoprefixer-stylus'
+cmq = require 'gulp-combine-media-queries'
+sourcemaps = require 'gulp-sourcemaps'
 
 # misc
 nodemon = require 'nodemon'
 stylish = require 'jshint-stylish'
 autowatch = require 'gulp-autowatch'
+nib = require 'nib'
+jeet = require 'jeet'
+
+# browserify crap
+source = require 'vinyl-source-stream'
+buffer = require 'vinyl-buffer'
+coffeeify = require 'coffeeify'
+browserify = require 'browserify'
+watchify = require 'watchify'
+
+cssSupport = [
+  'last 5 versions',
+  '> 1%',
+  'ie 8', 'ie 7',
+  'Android 4',
+  'BlackBerry 10'
+]
 
 # paths
 paths =
   vendor: './client/vendor/**/*'
+  img: './client/img/**/*'
+  fonts: './client/fonts/**/*'
   coffee: './client/**/*.coffee'
-  jsx: './client/**/*.jsx'
+  bundle: './client/index.coffee'
   stylus: './client/**/*.styl'
   html: './client/**/*.html'
   config: './server/config/*.json'
@@ -62,57 +82,82 @@ gulp.task 'server', (cb) ->
 
 
 # javascript
-gulp.task 'coffee', ->
-  gulp.src(paths.coffee)
-    .pipe(cache('coffee'))
-    .pipe(coffee())
-    .pipe(gif(gutil.env.production, uglify()))
-    .pipe(gulp.dest('./public'))
-    .pipe reload()
+bundleCache = {}
+pkgCache = {}
+bundler = watchify browserify paths.bundle,
+  debug: true
+  fullPaths: true
+  cache: bundleCache
+  packageCache: pkgCache
+  extensions: ['.coffee']
+bundler.transform coffeeify
 
-gulp.task 'jsx', ->
-  gulp.src(paths.jsx)
-    .pipe(cache('jsx'))
-    .pipe(react())
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(gif(gutil.env.production, uglify()))
-    .pipe(gulp.dest('./public'))
+gulp.task 'coffee', ->
+  bundler.bundle()
+    .pipe source 'index.js'
+    .pipe buffer()
+    .pipe cache 'js'
+    .pipe sourcemaps.init
+      loadMaps: true
+    .pipe sourcemaps.write '.'
+    .pipe gulp.dest './public'
     .pipe reload()
 
 gulp.task 'config', ->
-  gulp.src(paths.config)
-    .pipe(cache('config'))
-    .pipe(jsonlint())
-    .pipe(jsonlint.reporter())
+  gulp.src paths.config
+    .pipe cache 'config'
+    .pipe jsonlint()
+    .pipe jsonlint.reporter()
 
 # styles
 gulp.task 'stylus', ->
-  gulp.src(paths.stylus)
-    .pipe(stylus(use: nib()))
-    .pipe(concat('app.css'))
-    .pipe(gif(gutil.env.production, csso()))
-    .pipe(gulp.dest('./public'))
+  gulp.src paths.stylus
+    .pipe stylus
+      use: [
+        nib(),
+        jeet(),
+        autoprefixer(
+          cascade: true
+          browsers: cssSupport
+        )
+      ]
+    .pipe concat 'index.css'
+    .pipe gif gutil.env.production, csso()
+    .pipe gulp.dest './public'
     .pipe reload()
 
 gulp.task 'html', ->
-  gulp.src(paths.html)
-    .pipe(cache('html'))
-    .pipe(gif(gutil.env.production, htmlmin()))
-    .pipe(gulp.dest('./public'))
+  gulp.src paths.html
+    .pipe cache 'html'
+    .pipe gif gutil.env.production, htmlmin()
+    .pipe gulp.dest './public'
     .pipe reload()
 
 gulp.task 'vendor', ->
-  gulp.src(paths.vendor)
-    .pipe(cache('vendor'))
-    .pipe(gulp.dest('./public/vendor'))
+  gulp.src paths.vendor
+    .pipe cache 'vendor'
+    .pipe gulp.dest './public/vendor'
+    .pipe reload()
+
+gulp.task 'img', ->
+  gulp.src paths.img
+    .pipe cache 'img'
+    .pipe gulp.dest './public/img'
+    .pipe reload()
+
+gulp.task 'fonts', ->
+  gulp.src paths.fonts
+    .pipe cache 'fonts'
+    .pipe gulp.dest './public/fonts'
     .pipe reload()
 
 gulp.task 'watch', ->
+  bundler.on 'update', ->
+    gulp.start 'coffee'
   autowatch gulp, paths
 
 
 gulp.task 'css', ['stylus']
-gulp.task 'js', ['coffee', 'jsx']
-gulp.task 'static', ['html', 'vendor']
+gulp.task 'js', ['coffee']
+gulp.task 'static', ['html', 'img', 'fonts', 'vendor']
 gulp.task 'default', ['js', 'css', 'static', 'server', 'config', 'watch']

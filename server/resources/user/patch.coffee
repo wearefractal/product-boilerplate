@@ -22,4 +22,4 @@ module.exports = (req, res, next) ->
 
     user.save (err, nuser) ->
       return next err if err?
-      res.send nuser.toJSON()
+      res.json nuser

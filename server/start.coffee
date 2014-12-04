@@ -1,18 +1,10 @@
 winston = require 'winston'
 config = require './config'
+server = require './http'
 
 winston.log 'info', 'Starting with config', config
 
-db = require './db'
+server.listen config.port, ->
+  winston.log 'info', "Server running on #{config.port}"
 
-app = require './http/express'
-auth = require './http/passport'
-fbauth = require './http/passport-facebook'
-apis = require './http/apis'
-spa = require './http/spa'
-
-httpServer = require './http/httpServer'
-
-winston.log 'info', "Server running on #{config.port}"
-
-module.exports = app
+module.exports = server

@@ -1,11 +1,11 @@
-config = require '../config'
-app = require './express'
+config = require '../../config'
+app = require '../express'
 winston = require 'winston'
 pluralize = require 'pluralize'
 
 requireDir = require 'require-dir'
 path = require 'path'
-resDir = path.join __dirname, '../resources'
+resDir = path.join __dirname, '../../resources'
 resources = requireDir resDir, recurse: true
 
 acceptable = ['getAll', 'get', 'post', 'put', 'patch', 'delete', 'options']
