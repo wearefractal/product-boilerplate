@@ -19,7 +19,7 @@
     "express-session": "^1.9.1",
     "goosestrap": "^0.0.4",
     "method-override": "^2.3.0",
-    "mongoose": "^3.8.5",
+    "mongoose": "^3.9.6",
     "morgan": "^1.5.0",
     "optimist": "^0.6.0",
     "passport": "^0.2.0",
@@ -28,14 +28,13 @@
     "require-dir": "^0.1.0",
     "response-time": "^2.0.0",
     "serve-static": "^1.0.4",
-    "watchify": "^2.1.1",
     "winston": "^0.8.3"
   },
   "devDependencies": {
-    "autoprefixer-stylus": "^0.3.1",
-    "browserify": "^6.3.3",
+    "autoprefixer-stylus": "^0.4.0",
+    "browserify": "^7.0.0",
     "coffeeify": "^1.0.0",
-    "fission": "0.0.6",
+    "fission": "^0.0.10",
     "gulp": "^3.5.0",
     "gulp-autowatch": "0.0.1",
     "gulp-cached": "^1.0.1",
@@ -46,7 +45,7 @@
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.4.0",
     "gulp-jsonlint": "^1.0.1",
-    "gulp-livereload": "^2.1.1",
+    "gulp-livereload": "^3.0.0",
     "gulp-minify-html": "^0.1.0",
     "gulp-react": "^2.0.0",
     "gulp-sourcemaps": "^1.2.8",
@@ -56,6 +55,7 @@
     "jeet": "^6.1.2",
     "jshint-stylish": "^1.0.0",
     "mocha": "^2.0.1",
+    "mochify": "^2.1.0",
     "nib": "^1.0.2",
     "nodemon": "^1.0.14",
     "react-router": "^0.11.4",
@@ -67,8 +67,10 @@
     "watchify": "^2.1.1"
   },
   "scripts": {
-    "test": "NODE_ENV=testing mocha --recursive --reporter spec --compilers coffee:coffee-script/register ./server/test",
-    "build": "gulp --require coffee-script/register",
+    "test-server": "NODE_ENV=testing mocha --recursive --reporter spec --compilers coffee:coffee-script/register ./server/test",
+    "test-client": "NODE_ENV=testing mochify --reporter spec --transform coffeeify --extension .coffee ./client/test/**/*",
+    "test": "npm run test-server && npm run test-client",
+    "build": "gulp",
     "start": "node ./server/start.js"
   },
   "engines": {
