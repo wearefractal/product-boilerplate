@@ -68,7 +68,6 @@ gulp.task 'server', (cb) ->
 
   nodemon.once 'start', cb
   nodemon.on 'start', ->
-    console.log 'Server has started'
     setTimeout ->
       reloader.write path: idxPath
     , 750
@@ -142,6 +141,7 @@ gulp.task 'img', ->
     .pipe reload()
 
 gulp.task 'watch', ->
+  reload.listen()
   bundler.on 'update', ->
     gulp.start 'coffee'
   autowatch gulp, paths

@@ -1,4 +1,6 @@
-React = require 'react'
-window.React = React # for devtools
-config = require './config'
+fission = require 'fission'
+window.React = fission.React # for devtools
+router = require './router'
+app = require './app'
 
+module.exports = app

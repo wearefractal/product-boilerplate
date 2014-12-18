@@ -1,2 +1,1 @@
-module.exports =
-  title: 'Product Boilerplate'
+module.exports = {}

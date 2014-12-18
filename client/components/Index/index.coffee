@@ -1,4 +1,4 @@
-fission = require 'fission'
+fission = require '../../app'
 DOM = fission.DOM
 
 Index = fission.view

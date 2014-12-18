@@ -59,7 +59,7 @@
     "mochify": "^2.1.0",
     "nib": "^1.0.2",
     "nodemon": "^1.0.14",
-    "react-router": "^0.11.4",
+    "react-router": "^0.11.6",
     "rimraf": "^2.2.5",
     "should": "^4.3.0",
     "supertest": "^0.15.0",
