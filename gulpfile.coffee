@@ -7,6 +7,7 @@ gif = require 'gulp-if'
 path = require 'path'
 
 # plugins
+imagemin = require 'gulp-imagemin'
 htmlmin = require 'gulp-minify-html'
 coffee = require 'gulp-coffee'
 stylus = require 'gulp-stylus'
@@ -45,9 +46,7 @@ cssSupport = [
 
 # paths
 paths =
-  vendor: './client/vendor/**/*'
   img: './client/img/**/*'
-  fonts: './client/fonts/**/*'
   coffee: './client/**/*.coffee'
   bundle: './client/index.coffee'
   stylus: './client/**/*.styl'
@@ -112,17 +111,19 @@ gulp.task 'config', ->
 # styles
 gulp.task 'stylus', ->
   gulp.src paths.stylus
-    .pipe stylus
-      use: [
-        nib(),
-        jeet(),
-        autoprefixer(
-          cascade: true
-          browsers: cssSupport
-        )
-      ]
-    .pipe concat 'index.css'
-    .pipe gif gutil.env.production, csso()
+    .pipe sourcemaps.init()
+      .pipe stylus
+        use: [
+          nib(),
+          jeet(),
+          autoprefixer(
+            cascade: true
+            browsers: cssSupport
+          )
+        ]
+      .pipe concat 'index.css'
+      .pipe gif gutil.env.production, csso()
+    .pipe sourcemaps.write '.'
     .pipe gulp.dest './public'
     .pipe reload()
 
@@ -133,22 +134,11 @@ gulp.task 'html', ->
     .pipe gulp.dest './public'
     .pipe reload()
 
-gulp.task 'vendor', ->
-  gulp.src paths.vendor
-    .pipe cache 'vendor'
-    .pipe gulp.dest './public/vendor'
-    .pipe reload()
-
 gulp.task 'img', ->
   gulp.src paths.img
     .pipe cache 'img'
+    .pipe imagemin()
     .pipe gulp.dest './public/img'
-    .pipe reload()
-
-gulp.task 'fonts', ->
-  gulp.src paths.fonts
-    .pipe cache 'fonts'
-    .pipe gulp.dest './public/fonts'
     .pipe reload()
 
 gulp.task 'watch', ->
@@ -156,8 +146,7 @@ gulp.task 'watch', ->
     gulp.start 'coffee'
   autowatch gulp, paths
 
-
 gulp.task 'css', ['stylus']
 gulp.task 'js', ['coffee']
-gulp.task 'static', ['html', 'img', 'fonts', 'vendor']
+gulp.task 'static', ['html', 'img']
 gulp.task 'default', ['js', 'css', 'static', 'server', 'config', 'watch']
