@@ -3,6 +3,8 @@ DOM = fission.DOM
 
 Index = fission.view
   render: ->
-    return DOM.div null, 'Test'
+    return DOM.div
+      className: 'index'
+    , 'Test'
 
 module.exports = Index

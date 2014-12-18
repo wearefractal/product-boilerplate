@@ -1,1 +1,21 @@
+@require 'nib'
 @require 'jeet'
+@require '../../stylus-mixins/normalize'
+
+bgColor = #ecf0f1
+txtColor = #111
+
+normalize()
+
+html, body
+  height: 100%
+  width: 100%
+
+body
+  background-color: bgColor
+  color: txtColor
+
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif
+  font-weight: 300
+  font-smoothing: antialiased
+  text-rendering: optimizeLegibility
