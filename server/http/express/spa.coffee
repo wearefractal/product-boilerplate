@@ -1,5 +1,4 @@
 app = require './'
-db = require '../../db'
 config = require '../../config'
 {join} = require 'path'
 idxFile = join config.pubdir, 'index.html'

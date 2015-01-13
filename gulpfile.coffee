@@ -1,6 +1,5 @@
 # core
 gulp = require 'gulp'
-gutil = require 'gulp-util'
 
 # stream utilities
 gif = require 'gulp-if'
@@ -18,7 +17,8 @@ reload = require 'gulp-livereload'
 cache = require 'gulp-cached'
 jshint = require 'gulp-jshint'
 jsonlint = require 'gulp-jsonlint'
-autoprefixer = require 'autoprefixer-stylus'
+autoprefixer = require 'gulp-autoprefixer'
+normalize = require 'stylus-normalize'
 cmq = require 'gulp-combine-media-queries'
 sourcemaps = require 'gulp-sourcemaps'
 
@@ -36,6 +36,7 @@ coffeeify = require 'coffeeify'
 browserify = require 'browserify'
 watchify = require 'watchify'
 
+production = false
 cssSupport = [
   'last 5 versions',
   '> 1%',
@@ -46,6 +47,7 @@ cssSupport = [
 
 # paths
 paths =
+  clientBase: './client/'
   img: './client/img/**/*'
   coffee: './client/**/*.coffee'
   bundle: './client/index.coffee'
@@ -80,14 +82,8 @@ gulp.task 'server', (cb) ->
 
 
 # javascript
-bundleCache = {}
-pkgCache = {}
-bundler = watchify browserify paths.bundle,
-  debug: true
-  fullPaths: true
-  cache: bundleCache
-  packageCache: pkgCache
-  extensions: ['.coffee']
+watchify.args.extensions = ['.coffee']
+bundler = watchify browserify paths.bundle, watchify.args
 bundler.transform coffeeify
 
 gulp.task 'coffee', ->
@@ -113,15 +109,14 @@ gulp.task 'stylus', ->
     .pipe sourcemaps.init()
       .pipe stylus
         use: [
+          normalize(true),
           nib(),
-          jeet(),
-          autoprefixer(
-            cascade: true
-            browsers: cssSupport
-          )
+          jeet()
         ]
+      .pipe autoprefixer
+        browsers: cssSupport
       .pipe concat 'index.css'
-      .pipe gif gutil.env.production, csso()
+      .pipe gif production, csso()
     .pipe sourcemaps.write '.'
     .pipe gulp.dest './public'
     .pipe reload()
@@ -129,7 +124,7 @@ gulp.task 'stylus', ->
 gulp.task 'html', ->
   gulp.src paths.html
     .pipe cache 'html'
-    .pipe gif gutil.env.production, htmlmin()
+    .pipe gif production, htmlmin()
     .pipe gulp.dest './public'
     .pipe reload()
 

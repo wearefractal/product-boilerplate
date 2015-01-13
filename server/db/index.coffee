@@ -7,11 +7,11 @@ modelDir = join __dirname, '../models/*'
 
 db = goosestrap config.database, modelDir
 
+# TODO: break this out
 db.wipe = (cb) ->
   fns = db.modelNames()
-  fns = fns.map (k) -> db.model k
-  fns = fns.map (m) ->
-    return (done) ->
+    .map (k) -> db.model k
+    .map (m) -> (done) ->
       m.remove ->
         m.collection.dropAllIndexes ->
           done()
