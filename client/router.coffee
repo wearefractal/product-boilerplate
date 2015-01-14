@@ -7,7 +7,7 @@ Application = require './components/Application'
 # util code
 Route = fission.createFactory Router.Route
 DefaultRoute = fission.createFactory Router.DefaultRoute
-getRoutes = (routes) ->
+transformRoutes = (routes) ->
   # TODO: if only one key and no path then default = true
   totalKeys = Object.keys routes
   singleChild = (totalKeys.length is 1)
@@ -19,7 +19,7 @@ getRoutes = (routes) ->
 
     isDefault = (singleChild and !opt.path?) or !!opt.default
     ctor = (if isDefault then DefaultRoute else Route)
-    childRoutes = (if opt.children? then getRoutes(opt.children) else null)
+    childRoutes = (if opt.children? then transformRoutes(opt.children) else null)
     route = ctor
       key: name
       name: name
@@ -28,8 +28,8 @@ getRoutes = (routes) ->
     , childRoutes
 
 startRouter = (routes, container) ->
-  Router.run getRoutes(routes), Router.HistoryLocation, (Handler, state) ->
-    handler = Handler params: state.params
+  Router.run transformRoutes(routes), Router.HistoryLocation, (Handler, state) ->
+    handler = Handler state.params
     fission.React.render handler, container
 
 # start actual app code
