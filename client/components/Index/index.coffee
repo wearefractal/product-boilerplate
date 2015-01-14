@@ -1,7 +1,8 @@
-fission = require '../../app'
+fission = require '../../fission'
 DOM = fission.DOM
 
 Index = fission.view
+  displayName: 'Index'
   render: ->
     return DOM.div
       className: 'index-component'

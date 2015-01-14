@@ -82,8 +82,14 @@ gulp.task 'server', (cb) ->
 
 
 # javascript
-watchify.args.extensions = ['.coffee']
-bundler = watchify browserify paths.bundle, watchify.args
+args =
+  debug: true
+  fullPaths: true
+  cache: {}
+  packageCache: {}
+  extensions: ['.coffee']
+
+bundler = watchify browserify paths.bundle, args
 bundler.transform coffeeify
 
 gulp.task 'coffee', ->

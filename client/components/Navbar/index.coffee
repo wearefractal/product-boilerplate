@@ -1,7 +1,8 @@
-fission = require '../../app'
+fission = require '../../fission'
 DOM = fission.DOM
 
 Nav = fission.view
+  displayName: 'Navbar'
   render: ->
     # TODO: flesh this out
     return DOM.nav

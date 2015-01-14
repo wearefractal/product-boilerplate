@@ -1,9 +1,12 @@
-fission = require '../../app'
-{RouteHandler} = require 'react-router'
-DOM = fission.DOM
+fission = require '../../fission'
+Router = require 'react-router'
+
 Navbar = fission.createFactory require '../Navbar'
+RouteHandler = fission.createFactory Router.RouteHandler
+DOM = fission.DOM
 
 Application = fission.view
+  displayName: 'Application'
   render: ->
     return DOM.div
       className: 'application-component'
