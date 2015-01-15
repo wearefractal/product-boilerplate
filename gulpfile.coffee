@@ -101,7 +101,7 @@ gulp.task 'coffee', ->
       loadMaps: true
     .pipe sourcemaps.write '.'
     .pipe gulp.dest './public'
-    .pipe reload()
+    .pipe gif '*.js', reload()
 
 gulp.task 'config', ->
   gulp.src paths.config
@@ -125,7 +125,7 @@ gulp.task 'stylus', ->
       .pipe gif production, csso()
     .pipe sourcemaps.write '.'
     .pipe gulp.dest './public'
-    .pipe reload()
+    .pipe gif '*.css', reload()
 
 gulp.task 'html', ->
   gulp.src paths.html
@@ -142,10 +142,10 @@ gulp.task 'img', ->
     .pipe reload()
 
 gulp.task 'watch', ->
-  reload.listen()
   bundler.on 'update', ->
     gulp.start 'coffee'
   autowatch gulp, paths
+  reload.listen()
 
 gulp.task 'css', ['stylus']
 gulp.task 'js', ['coffee']
