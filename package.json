@@ -5,7 +5,7 @@
   "homepage": "http://github.com/wearefractal/APPNAME",
   "repository": "git://github.com/wearefractal/APPNAME.git",
   "author": "Fractal <contact@wearefractal.com> (http://wearefractal.com/)",
-  "main": "./server/start.js",
+  "main": "./server/index.js",
   "dependencies": {
     "async": "^0.9.0",
     "body-parser": "^1.9.3",
@@ -56,6 +56,7 @@
     "jshint-stylish": "^1.0.0",
     "mocha": "^2.0.1",
     "mochify": "^2.1.0",
+    "mongoose-test-utils": "0.0.2",
     "nib": "https://github.com/tj/nib/archive/master.tar.gz",
     "nodemon": "^1.0.14",
     "react-router": "^0.11.6",
@@ -72,7 +73,7 @@
     "test-client": "NODE_ENV=testing mochify --reporter spec --transform coffeeify --extension .coffee ./client/test/**/*",
     "test": "npm run test-server && npm run test-client",
     "build": "gulp",
-    "start": "node ./server/start.js"
+    "start": "node ./server"
   },
   "engines": {
     "node": ">= 0.9"

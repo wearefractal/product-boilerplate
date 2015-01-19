@@ -2,6 +2,7 @@ setup = require '../setup'
 app = require '../../start'
 config = require '../../config'
 db = require '../../db'
+dbUtils = require 'mongoose-test-utils'
 
 User = db.model 'User'
 Comment = db.model 'Comment'
@@ -25,7 +26,7 @@ fakeComment =
   rating: 3.5
 
 describe 'Comment POST plural', ->
-  beforeEach db.wipe
+  beforeEach dbUtils.wipe.bind null, db
   beforeEach (cb) ->
     User.create mock, cb
 

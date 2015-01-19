@@ -9,6 +9,7 @@ User = db.model 'User'
 should = require 'should'
 require 'mocha'
 
+# TODO: get rid of all of this, wow
 originalInit = passport.initialize()
 
 hookedInit = (req, res, next) ->

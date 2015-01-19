@@ -55,7 +55,7 @@ paths =
   html: './client/**/*.html'
   config: './server/config/*.json'
 
-# im going to break this out into a module
+# TODO: im going to break this out into a module
 # so this will become about two lines
 gulp.task 'server', (cb) ->
   # total hack to make nodemon + livereload
@@ -63,7 +63,7 @@ gulp.task 'server', (cb) ->
   idxPath = './public/index.html'
   reloader = reload()
   nodemon
-    script: './server/start.js'
+    script: './server'
     watch: ['./server']
     ext: 'js json coffee'
     ignore: './server/test'
