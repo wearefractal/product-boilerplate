@@ -23,7 +23,7 @@ cmq = require 'gulp-combine-media-queries'
 sourcemaps = require 'gulp-sourcemaps'
 
 # misc
-nodemon = require 'nodemon'
+nodemon = require 'gulp-nodemon'
 stylish = require 'jshint-stylish'
 autowatch = require 'gulp-autowatch'
 nib = require 'nib'
@@ -47,6 +47,7 @@ cssSupport = [
 
 # paths
 paths =
+  index: './public/index.html'
   clientBase: './client/'
   img: './client/img/**/*'
   coffee: './client/**/*.coffee'
@@ -55,31 +56,19 @@ paths =
   html: './client/**/*.html'
   config: './server/config/*.json'
 
-# TODO: im going to break this out into a module
-# so this will become about two lines
 gulp.task 'server', (cb) ->
-  # total hack to make nodemon + livereload
-  # work sanely
-  idxPath = './public/index.html'
-  reloader = reload()
-  nodemon
+  watcher = nodemon
     script: './server'
     watch: ['./server']
     ext: 'js json coffee'
     ignore: './server/test'
 
-  nodemon.once 'start', cb
-  nodemon.on 'start', ->
+  watcher.once 'start', cb
+  watcher.on 'start', ->
     setTimeout ->
-      reloader.write path: idxPath
+      reload.changed paths.index
     , 750
-  nodemon.on 'quit', ->
-    console.log 'Server has quit'
-  nodemon.on 'restart', (files) ->
-    console.log 'Server restarted due to:', files
-
   return
-
 
 # javascript
 args =
@@ -145,9 +134,10 @@ gulp.task 'watch', ->
   bundler.on 'update', ->
     gulp.start 'coffee'
   autowatch gulp, paths
-  reload.listen()
 
 gulp.task 'css', ['stylus']
 gulp.task 'js', ['coffee']
 gulp.task 'static', ['html', 'img']
 gulp.task 'default', ['js', 'css', 'static', 'server', 'config', 'watch']
+
+reload.listen()

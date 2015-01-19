@@ -8,7 +8,6 @@ Application = require './components/Application'
 Route = fission.createFactory Router.Route
 DefaultRoute = fission.createFactory Router.DefaultRoute
 transformRoutes = (routes) ->
-  # TODO: if only one key and no path then default = true
   totalKeys = Object.keys routes
   singleChild = (totalKeys.length is 1)
 
