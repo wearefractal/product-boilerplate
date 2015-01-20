@@ -48,7 +48,6 @@ cssSupport = [
 # paths
 paths =
   index: './public/index.html'
-  clientBase: './client/'
   img: './client/img/**/*'
   coffee: './client/**/*.coffee'
   bundle: './client/index.coffee'
@@ -83,6 +82,8 @@ bundler.transform coffeeify
 
 gulp.task 'coffee', ->
   bundler.bundle()
+    .once 'error', (err) ->
+      console.error err
     .pipe source 'index.js'
     .pipe buffer()
     .pipe cache 'js'
