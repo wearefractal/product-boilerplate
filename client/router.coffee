@@ -5,6 +5,7 @@ Index = require './components/Index'
 Application = require './components/Application'
 
 # util code
+# TODO: onError?
 Route = fission.createFactory Router.Route
 DefaultRoute = fission.createFactory Router.DefaultRoute
 transformRoutes = (routes) ->
@@ -28,7 +29,7 @@ transformRoutes = (routes) ->
 
 startRouter = (routes, container) ->
   Router.run transformRoutes(routes), Router.HistoryLocation, (Handler, state) ->
-    handler = Handler state.params
+    handler = Handler()
     fission.React.render handler, container
 
 # start actual app code

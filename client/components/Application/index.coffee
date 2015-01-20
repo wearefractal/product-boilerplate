@@ -7,6 +7,7 @@ DOM = fission.DOM
 
 Application = fission.view
   displayName: 'Application'
+  mixins: [Router.State]
   render: ->
     return DOM.div
       className: 'application-component'
