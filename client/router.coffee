@@ -29,7 +29,7 @@ transformRoutes = (routes) ->
 
 startRouter = (routes, container) ->
   Router.run transformRoutes(routes), Router.HistoryLocation, (Handler, state) ->
-    handler = Handler()
+    handler = fission.createFactory(Handler)()
     fission.React.render handler, container
 
 # start actual app code
