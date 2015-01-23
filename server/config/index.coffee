@@ -1,3 +1,4 @@
+# TODO: split this out
 cc = require 'config-chain'
 {join} = require 'path'
 {argv} = require 'optimist'

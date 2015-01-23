@@ -47,7 +47,6 @@ cssSupport = [
 
 # paths
 paths =
-  index: './public/index.html'
   img: './client/img/**/*'
   coffee: './client/**/*.coffee'
   bundle: './client/index.coffee'
@@ -64,9 +63,8 @@ gulp.task 'server', (cb) ->
 
   watcher.once 'start', cb
   watcher.on 'start', ->
-    setTimeout ->
-      reload.changed paths.index
-    , 750
+    # TODO: make sure this is actually right
+    setTimeout reload.reload, 750
   return
 
 # javascript
