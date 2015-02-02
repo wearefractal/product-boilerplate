@@ -1,17 +1,16 @@
-fission = require './fission'
+{router} = require 'fission'
+Index = require './views/Index'
+Settings = require './views/Settings'
+Application = require './views/Application'
 
-Index = require './components/Index'
-Index = require './components/Settings'
-Application = require './components/Application'
-
-module.exports = fission.router
+module.exports = router
   app:
     path: '/'
-    handler: Application
+    view: Application
     children:
       settings:
-        handler: Settings
+        view: Settings
         path: 'settings'
       index:
-        handler: Index
+        view: Index
         default: true

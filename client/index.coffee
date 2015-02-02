@@ -1,6 +1,5 @@
+fission = require 'fission'
+config = require './config'
 router = require './router'
-fission = require './fission'
 
-window.React = fission.React # for devtools
-
-router.start()
+router.start document.body

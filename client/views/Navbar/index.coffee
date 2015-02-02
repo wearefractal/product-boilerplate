@@ -1,12 +1,9 @@
-fission = require '../../fission'
-DOM = fission.DOM
+{DOM, view} = require 'fission'
 
-Nav = fission.view
+module.exports = view
   displayName: 'Navbar'
   render: ->
     # TODO: flesh this out
     return DOM.nav
       className: 'navbar-component'
     , @props.children
-
-module.exports = Nav
