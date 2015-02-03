@@ -10,7 +10,7 @@ module.exports = (req, res, next) ->
   delete req.body.from
   delete req.body.created
   req.body.from = req.user._id
- 
+
   Comment.create req.body, (err, comment) ->
     return next err if err?
     res.json comment
