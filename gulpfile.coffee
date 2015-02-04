@@ -82,7 +82,7 @@ bundler = watchify oldBundler
 gulp.task 'coffee', ->
   oldBundler.bundle()
     .once 'error', (err) ->
-      console.error err
+      console.error err.message
     .pipe source 'index.js'
     .pipe buffer()
     .pipe cache 'js'
