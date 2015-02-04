@@ -75,11 +75,12 @@ args =
   packageCache: {}
   extensions: ['.coffee']
 
-bundler = watchify browserify paths.bundle, args
-bundler.transform coffeeify
+oldBundler = browserify paths.bundle, args
+oldBundler.transform coffeeify
+bundler = watchify oldBundler
 
 gulp.task 'coffee', ->
-  bundler.bundle()
+  oldBundler.bundle()
     .once 'error', (err) ->
       console.error err
     .pipe source 'index.js'
