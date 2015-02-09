@@ -1,6 +1,6 @@
 {Schema} = require 'mongoose'
 
-User = new Schema
+Model = new Schema
   # fb fields
   fbid:
     type: String
@@ -63,15 +63,15 @@ User = new Schema
     default: 0
     min: 0
 
-User.virtual('prettyName').get ->
+Model.virtual('prettyName').get ->
   return @username or @fbid
 
-User.set 'toJSON', {getters:true, virtuals:true}
-User.set 'toObject', {getters:true, virtuals:true}
-User.set 'strict', true
+Model.set 'toJSON', {getters:true, virtuals:true}
+Model.set 'toObject', {getters:true, virtuals:true}
+Model.set 'strict', true
 
-User.pre 'save', (next) ->
+Model.pre 'save', (next) ->
   @lastModified = Date.now()
   next()
 
-module.exports = User
+module.exports = Model

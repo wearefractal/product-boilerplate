@@ -1,6 +1,6 @@
 {Schema} = require 'mongoose'
 
-Comment = new Schema
+Model = new Schema
   text:
     type: String
     default: ''
@@ -27,8 +27,8 @@ Comment = new Schema
     max: 5
     min: 1
 
-Comment.set 'toJSON', {getters:true,virtuals:true}
-Comment.set 'toObject', {getters:true,virtuals:true}
-Comment.set 'strict', true
+Model.set 'toJSON', {getters:true virtuals:true}
+Model.set 'toObject', {getters:true virtuals:true}
+Model.set 'strict', true
 
-module.exports = Comment
+module.exports = Model
