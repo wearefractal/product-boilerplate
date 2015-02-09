@@ -27,8 +27,8 @@ Model = new Schema
     max: 5
     min: 1
 
-Model.set 'toJSON', {getters:true virtuals:true}
-Model.set 'toObject', {getters:true virtuals:true}
+Model.set 'toJSON', {getters:true, virtuals:true}
+Model.set 'toObject', {getters:true, virtuals:true}
 Model.set 'strict', true
 
 module.exports = Model
