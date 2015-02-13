@@ -33,7 +33,7 @@
   "devDependencies": {
     "browserify": "^8.0.0",
     "coffeeify": "^1.0.0",
-    "fission": "fissionjs/fission#new-router",
+    "fission": "fissionjs/fission",
     "react": "^0.12.2",
     "gulp": "^3.5.0",
     "gulp-autoprefixer": "^2.0.0",
@@ -59,7 +59,7 @@
     "mocha": "^2.0.1",
     "mochify": "^2.1.0",
     "mongoose-test-utils": "0.0.2",
-    "nib": "https://github.com/tj/nib/archive/master.tar.gz",
+    "nib": "1.1.0",
     "rimraf": "^2.2.5",
     "should": "^4.3.0",
     "stylus-normalize": "^3.0.3",
