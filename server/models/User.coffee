@@ -67,15 +67,6 @@ Model = new Schema
     default: Date.now
 
   # custom fields here
-  ready:
-    grants: ['admin']
-    type: Boolean
-    default: false
-
-  nextReservation:
-    grants: ['admin']
-    type: Schema.Types.ObjectId
-    ref: 'Reservation'
 
   phone:
     grants: 'public'

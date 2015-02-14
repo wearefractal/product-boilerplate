@@ -25,6 +25,11 @@ Model = new Schema
     default: Date.now
     grants: ['public']
 
+  lastModified:
+    grants: ['admin']
+    type: Date
+    default: Date.now
+
   # custom fields here
   rating:
     type: Number
@@ -32,6 +37,9 @@ Model = new Schema
     max: 5
     min: 1
     grants: ['public']
+
+Model.set 'id_grants', 'public'
+Model.set 'id_output', 'id'
 
 Model.set 'toJSON', {getters:true, virtuals:true}
 Model.set 'toObject', {getters:true, virtuals:true}
