@@ -4,7 +4,7 @@
   "facebook":{
     "id": "270934053064847",
     "secret": "8b7d87a38fb767bf9402e9ae2029a645",
-    "callback": "http://localhost:9090/auth/facebook/callback"
+    "callback": "/auth/facebook/callback"
   },
   "apiPrefix": "/v1"
 }

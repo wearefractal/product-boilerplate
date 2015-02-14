@@ -11,8 +11,10 @@ express = require 'express'
 profileToUser = (profile, accessToken) ->
   profile.fbid = profile.id
   profile.provider = 'facebook'
-  profile.location = profile.location?.name
   profile.token = accessToken
+
+  # field formatting
+  profile.location = profile.location?.name
 
   # dont let fb overwrite our sacred vars
   delete profile.id
@@ -52,6 +54,13 @@ strategyConfig =
   clientID: config.facebook.id
   clientSecret: config.facebook.secret
   callbackURL: config.facebook.callback
+  scope: [
+    'public_profile'
+    'user_about_me'
+    'user_interests'
+    'user_activities'
+    'user_location'
+  ]
 
 strategy = new FacebookStrategy strategyConfig, handleLogin
 
@@ -64,7 +73,7 @@ app.get '/auth/facebook', passport.authenticate 'facebook',
 
 app.get '/auth/facebook/callback', passport.authenticate 'facebook',
   display: 'touch'
-  successRedirect: '/'
-  failureRedirect: '/login'
+  successRedirect: '/setup'
+  failureRedirect: '/'
 
 module.exports = passport

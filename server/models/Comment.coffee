@@ -1,22 +1,32 @@
 {Schema} = require 'mongoose'
+formatFields = require 'mongoose-format-fields'
 
-Comment = new Schema
+Model = new Schema
   text:
     type: String
     default: ''
     validate: (v) -> v.length <= 140
+    grants: ['public']
 
   from:
     type: Schema.Types.ObjectId
     ref: 'User'
     required: true
+    grants: ['public']
 
   to:
     type: Schema.Types.ObjectId
     ref: 'User'
     required: true
+    grants: ['public']
 
   created:
+    type: Date
+    default: Date.now
+    grants: ['public']
+
+  lastModified:
+    grants: ['admin']
     type: Date
     default: Date.now
 
@@ -26,9 +36,15 @@ Comment = new Schema
     default: 3
     max: 5
     min: 1
+    grants: ['public']
 
-Comment.set 'toJSON', {getters:true,virtuals:true}
-Comment.set 'toObject', {getters:true,virtuals:true}
-Comment.set 'strict', true
+Model.set 'id_grants', 'public'
+Model.set 'id_output', 'id'
 
-module.exports = Comment
+Model.set 'toJSON', {getters:true, virtuals:true}
+Model.set 'toObject', {getters:true, virtuals:true}
+Model.set 'strict', true
+
+Model.plugin formatFields
+
+module.exports = Model
