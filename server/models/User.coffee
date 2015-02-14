@@ -1,5 +1,5 @@
 {Schema} = require 'mongoose'
-format_fields = require 'mongoose-format-fields'
+formatFields = require 'mongoose-format-fields'
 
 Model = new Schema
   # fb fields
@@ -97,6 +97,6 @@ Model.pre 'save', (next) ->
   @lastModified = Date.now()
   next()
 
-Model.plugin format_fields
+Model.plugin formatFields
 
 module.exports = Model
