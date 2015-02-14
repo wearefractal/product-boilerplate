@@ -20,6 +20,7 @@
     "goosestrap": "^0.0.5",
     "method-override": "^2.3.0",
     "mongoose": "~3.8.0",
+    "mongoose-format-fields": "^0.1.3",
     "morgan": "^1.5.0",
     "optimist": "^0.6.0",
     "passport": "^0.2.0",
