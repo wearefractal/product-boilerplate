@@ -4,14 +4,14 @@ formatFields = require 'mongoose-format-fields'
 Model = new Schema
   # fb fields
   fbid:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: String
     required: true
     index:
       unique: true
 
   name:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: String
     required: true
 
@@ -21,12 +21,12 @@ Model = new Schema
     required: true
 
   last_name:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: String
     required: true
 
   token:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: String
     required: true
 
@@ -36,15 +36,15 @@ Model = new Schema
     lowercase: true
 
   timezone:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: Number
 
   locale:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: String
 
   verified:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: Boolean
 
   location:
@@ -57,19 +57,18 @@ Model = new Schema
     type: String
 
   created:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: Date
     default: Date.now
 
   lastModified:
-    grants: ['admin']
+    grants: ['admin', 'self']
     type: Date
     default: Date.now
 
   # custom fields here
-
   phone:
-    grants: 'public'
+    grants: ['admin', 'self']
     type: String
     validate: /^\d{10}$/
     unique: true
@@ -77,17 +76,21 @@ Model = new Schema
 Model.virtual('image').get ->
   return "http://graph.facebook.com/#{@fbid}/picture?height=800&type=normal&width=800"
 
-Model.set 'id_grants', 'public'
-Model.set 'id_output', 'id'
+Model.set 'toJSON',
+  getters: true
+  virtuals: true
 
-Model.set 'toJSON', {getters:true, virtuals:true}
-Model.set 'toObject', {getters:true, virtuals:true}
+Model.set 'toObject',
+  getters: true
+  virtuals: true
 Model.set 'strict', true
 
 Model.pre 'save', (next) ->
   @lastModified = Date.now()
   next()
 
+Model.set 'id_grants', 'public'
+Model.set 'id_output', 'id'
 Model.plugin formatFields
 
 module.exports = Model

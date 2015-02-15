@@ -8,6 +8,8 @@ module.exports = router
   app:
     path: '/'
     view: Application
+    defaultChild:
+      view: Index
     children:
       settings:
         view: Settings
@@ -15,6 +17,3 @@ module.exports = router
       setup:
         view: Setup
         path: 'setup'
-      index:
-        view: Index
-        default: true

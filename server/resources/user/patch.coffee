@@ -2,7 +2,7 @@ isObjectId = require '../../lib/isObjectId'
 db = require '../../db'
 User = db.model 'User'
 
-canModify = ['points']
+canModify = ['phone']
 
 module.exports = (req, res, next) ->
   return res.status(403).end() unless req.isAuthenticated()

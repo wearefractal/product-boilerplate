@@ -15,5 +15,4 @@ spa = require './express/spa'
 
 httpServer = http.createServer app
 
-
 module.exports = httpServer

@@ -104,7 +104,6 @@ gulp.task 'stylus', ->
     .pipe sourcemaps.init()
       .pipe stylus
         use: [
-          normalize(true),
           nib(),
           jeet()
         ]
