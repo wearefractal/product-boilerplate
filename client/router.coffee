@@ -2,6 +2,7 @@
 Index = require './views/Index'
 Settings = require './views/Settings'
 Setup = require './views/Setup'
+Splash = require './views/Splash'
 Application = require './views/Application'
 
 module.exports = router
@@ -20,3 +21,6 @@ module.exports = router
       setup:
         view: Setup
         path: 'setup'
+      splash:
+        view: Splash
+        path: 'splash'
