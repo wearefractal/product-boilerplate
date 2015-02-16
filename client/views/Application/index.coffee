@@ -1,5 +1,6 @@
 {DOM, ChildView, view} = require 'fission'
-Navbar = require '../Navbar'
+Navbar = require '../../components/Navbar'
+me = require '../me'
 
 links = [
   label: 'Home'
