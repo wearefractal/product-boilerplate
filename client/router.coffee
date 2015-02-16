@@ -11,6 +11,9 @@ module.exports = router
     defaultChild:
       view: Index
     children:
+      home:
+        view: Index
+        path: 'home'
       settings:
         view: Settings
         path: 'settings'

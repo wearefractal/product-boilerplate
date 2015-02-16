@@ -1,9 +1,14 @@
-{DOM, view} = require 'fission'
+{DOM, view, Link} = require 'fission'
 
 module.exports = view
   displayName: 'Navbar'
+  getDefaultProps: ->
+    links: []
+
   render: ->
-    # TODO: flesh this out
+    list = @props.links.map (link) ->
+      return Link link, link.label
+
     return DOM.nav
       className: 'navbar-component'
-    , @props.children
+    , list

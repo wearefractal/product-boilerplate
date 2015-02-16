@@ -1,12 +1,24 @@
 @require 'nib'
 @require 'jeet'
 
-navColor = #333
-textColor = #fff
+navColor = #2c3e50
+textColor = #bdc3c7
+activeTextColor = #ecf0f1
 
 .navbar-component
-  height: 44px
-  width: 100%
-
+  col(1/1)
+  height: 60px
   background-color: navColor
   color: textColor
+
+  a
+    outline: none
+    float: left
+    clear: none
+    color: inherit
+    text-decoration: none
+    font-size: 18px
+    padding: 18px
+
+  a.active
+    color: activeTextColor

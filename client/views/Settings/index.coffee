@@ -5,4 +5,4 @@ module.exports = view
   render: ->
     return DOM.div
       className: 'settings-component'
-    , 'Settings'
+    , 'Settings view'
