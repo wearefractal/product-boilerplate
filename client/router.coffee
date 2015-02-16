@@ -6,6 +6,12 @@ Splash = require './views/Splash'
 Application = require './views/Application'
 
 module.exports = router
+  splash:
+    view: Splash
+    path: 'splash'
+  setup:
+    view: Setup
+    path: 'setup'
   app:
     path: '/'
     view: Application
@@ -18,9 +24,3 @@ module.exports = router
       settings:
         view: Settings
         path: 'settings'
-      setup:
-        view: Setup
-        path: 'setup'
-      splash:
-        view: Splash
-        path: 'splash'

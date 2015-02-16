@@ -2,6 +2,9 @@
 CircleIcon = require '../../components/CircleIcon'
 
 Header = view
+  getDefaultProps: ->
+    backgroundImage: '/img/bg.png'
+
   login: ->
     window.location = '/auth/facebook'
 
@@ -31,48 +34,44 @@ Header = view
     return DOM.div
       className: 'header-component'
       style:
-        background: "#333 url('/img/bg.png')"
+        backgroundColor: '#333'
+        backgroundImage: "url(#{@props.backgroundImage})"
         backgroundSize: 'cover'
         backgroundPosition: 'center'
     , statementContainer, downArrow
 
 Info = view
   render: ->
+    num = (n) ->
+      CircleIcon
+        text: n
+        background: '#2980b9'
+
     infoTitle = DOM.p
       className: 'title'
     , 'How it works'
 
+    fbInfoContent = DOM.p null, 'content here'
+    fbInfoHeader = DOM.p
+      className: 'info-header'
+    , 'Sign in with Facebook'
     fbInfo = DOM.div
       className: 'info'
-    ,
+    , num(1), fbInfoHeader, fbInfoContent
 
-      CircleIcon
-        text: 1
-        background: '#2980b9'
-
-      DOM.p
-        className: 'info-header'
-      , 'Sign up with Facebook'
-      DOM.p null, 'content here'
+    phoneInfoContent = DOM.p null, 'content here'
+    phoneInfoHeader = DOM.p
+      className: 'info-header'
+    , 'Enter your phone number'
     phoneInfo = DOM.div
       className: 'info'
-    ,
-
-      CircleIcon
-        text: 2
-        background: '#2980b9'
-
-      DOM.p
-        className: 'info-header'
-      , 'Enter your phone number'
-      DOM.p null, 'content here'
+    , num(2), phoneInfoHeader, phoneInfoContent
 
 
     return DOM.div
       id: 'info'
       className: 'info-component'
-    , infoTitle,
-      fbInfo, phoneInfo#, dinnerInfo, transportationInfo
+    , infoTitle, fbInfo, phoneInfo
 
 module.exports = view
   displayName: 'Splash'
