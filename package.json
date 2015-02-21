@@ -32,7 +32,7 @@
     "winston": "^0.9.0"
   },
   "devDependencies": {
-    "browserify": "^8.0.0",
+    "browserify": "^9.0.0",
     "coffeeify": "^1.0.0",
     "fission": "https://github.com/fissionjs/fission/archive/master.tar.gz",
     "react": "^0.12.2",
@@ -49,7 +49,7 @@
     "gulp-jshint": "^1.4.0",
     "gulp-jsonlint": "^1.0.1",
     "gulp-livereload": "^3.5.0",
-    "gulp-minify-html": "^0.1.0",
+    "gulp-minify-html": "^1.0.0",
     "gulp-nodemon": "^1.0.5",
     "gulp-react": "^2.0.0",
     "gulp-sourcemaps": "^1.2.8",
