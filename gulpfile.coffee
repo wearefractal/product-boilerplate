@@ -70,7 +70,6 @@ gulp.task 'server', (cb) ->
 # javascript
 args =
   debug: true
-  fullPaths: true
   cache: {}
   packageCache: {}
   extensions: ['.coffee']
