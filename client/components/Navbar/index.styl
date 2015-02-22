@@ -16,17 +16,20 @@ navHeight = 55px
   background-color: navColor
   color: textColor
 
-  a
-    col(1/4)
-    height: 100%
-    font-size: 18px
-    text-align: center
-    line-height: navHeight
+  .links
+    center(max-width: 700px)
 
-    outline: none
-    color: inherit
-    text-decoration: none
+    a
+      span(1/4)
+      height: 100%
+      font-size: 18px
+      text-align: center
+      line-height: navHeight
 
-  a.active
-    color: activeTextColor
-    background-color: activeNavColor
+      outline: none
+      color: inherit
+      text-decoration: none
+
+    a.active
+      color: activeTextColor
+      background-color: activeNavColor

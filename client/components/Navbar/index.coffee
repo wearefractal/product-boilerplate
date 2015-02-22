@@ -6,7 +6,9 @@ module.exports = view
     links: []
 
   render: ->
-    list = @props.links.map (link) ->
+    list = DOM.div
+      className: 'links',
+    , @props.links.map (link) ->
       link.key = "#{link.to}-nav-link"
       return Link link, link.label
 

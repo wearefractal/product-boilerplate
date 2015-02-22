@@ -68,7 +68,7 @@ gulp.task 'server', (cb) ->
 # javascript
 args =
   fullPaths: true
-  debug: true
+  debug: !production
   cache: {}
   packageCache: {}
   extensions: ['.coffee']
@@ -85,6 +85,7 @@ bundle = ->
     .pipe cache 'js'
     .pipe sourcemaps.init
       loadMaps: true
+    .pipe gif production, uglify()
     .pipe sourcemaps.write '.'
     .pipe gulp.dest './public'
     .pipe gif '*.js', reload()
@@ -102,6 +103,7 @@ gulp.task 'stylus', ->
   gulp.src paths.stylus
     .pipe sourcemaps.init()
       .pipe stylus
+        compress: production
         use: [
           nib(),
           jeet()
