@@ -67,6 +67,7 @@ gulp.task 'server', (cb) ->
 
 # javascript
 args =
+  fullPaths: true
   debug: true
   cache: {}
   packageCache: {}
