@@ -74,12 +74,11 @@ args =
   packageCache: {}
   extensions: ['.coffee']
 
-oldBundler = browserify paths.bundle, args
-oldBundler.transform coffeeify
-bundler = watchify oldBundler
+bundler = watchify browserify paths.bundle, args
+bundler.transform coffeeify
 
 gulp.task 'coffee', ->
-  oldBundler.bundle()
+  bundler.bundle()
     .once 'error', (err) ->
       console.error err.message
     .pipe source 'index.js'
@@ -129,6 +128,7 @@ gulp.task 'img', ->
     .pipe reload()
 
 gulp.task 'watch', ->
+  reload.listen()
   bundler.on 'update', ->
     gulp.start 'coffee'
   autowatch gulp, paths
@@ -137,5 +137,3 @@ gulp.task 'css', ['stylus']
 gulp.task 'js', ['coffee']
 gulp.task 'static', ['html', 'img']
 gulp.task 'default', ['js', 'css', 'static', 'server', 'config', 'watch']
-
-reload.listen()
