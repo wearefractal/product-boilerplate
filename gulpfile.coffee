@@ -8,7 +8,6 @@ path = require 'path'
 # plugins
 imagemin = require 'gulp-imagemin'
 htmlmin = require 'gulp-minify-html'
-coffee = require 'gulp-coffee'
 stylus = require 'gulp-stylus'
 concat = require 'gulp-concat'
 uglify = require 'gulp-uglify'
@@ -48,7 +47,6 @@ cssSupport = [
 # paths
 paths =
   img: './client/img/**/*'
-  coffee: './client/**/*.coffee'
   bundle: './client/index.coffee'
   stylus: './client/**/*.styl'
   html: './client/**/*.html'
@@ -64,23 +62,22 @@ gulp.task 'server', (cb) ->
   watcher.once 'start', cb
   watcher.on 'start', ->
     # TODO: make sure this is actually right
-    setTimeout reload.reload, 750
+    setTimeout reload.reload, 1000
   return
 
 # javascript
 args =
-  debug: true
   fullPaths: true
+  debug: !production
   cache: {}
   packageCache: {}
   extensions: ['.coffee']
 
-oldBundler = browserify paths.bundle, args
-oldBundler.transform coffeeify
-bundler = watchify oldBundler
+bundler = watchify browserify paths.bundle, args
+bundler.transform coffeeify
 
-gulp.task 'coffee', ->
-  oldBundler.bundle()
+bundle = ->
+  bundler.bundle()
     .once 'error', (err) ->
       console.error err.message
     .pipe source 'index.js'
@@ -88,9 +85,12 @@ gulp.task 'coffee', ->
     .pipe cache 'js'
     .pipe sourcemaps.init
       loadMaps: true
+    .pipe gif production, uglify()
     .pipe sourcemaps.write '.'
     .pipe gulp.dest './public'
     .pipe gif '*.js', reload()
+
+gulp.task 'js', bundle
 
 gulp.task 'config', ->
   gulp.src paths.config
@@ -103,6 +103,7 @@ gulp.task 'stylus', ->
   gulp.src paths.stylus
     .pipe sourcemaps.init()
       .pipe stylus
+        compress: production
         use: [
           nib(),
           jeet()
@@ -129,14 +130,11 @@ gulp.task 'img', ->
     .pipe gulp.dest './public/img'
     .pipe reload()
 
-gulp.task 'watch', ->
-  bundler.on 'update', ->
-    gulp.start 'coffee'
+gulp.task 'watch', (cb) ->
+  reload.listen()
+  bundler.on 'update', gulp.parallel 'js'
   autowatch gulp, paths
+  cb()
 
-gulp.task 'css', ['stylus']
-gulp.task 'js', ['coffee']
-gulp.task 'static', ['html', 'img']
-gulp.task 'default', ['js', 'css', 'static', 'server', 'config', 'watch']
-
-reload.listen()
+gulp.task 'build', gulp.parallel('html', 'img', 'js', 'stylus')
+gulp.task 'default', gulp.series('config', 'server', 'watch', 'build')

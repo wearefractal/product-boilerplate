@@ -32,15 +32,14 @@
     "winston": "^0.9.0"
   },
   "devDependencies": {
-    "browserify": "^8.0.0",
+    "browserify": "^9.0.0",
     "coffeeify": "^1.0.0",
-    "fission": "fissionjs/fission",
-    "react": "^0.12.2",
-    "gulp": "^3.5.0",
+    "components": "git+ssh://git@github.com:wearefractal/components",
+    "fission": "https://github.com/fissionjs/fission/archive/master.tar.gz",
+    "gulp": "https://github.com/gulpjs/gulp/archive/4.0.tar.gz",
     "gulp-autoprefixer": "^2.0.0",
-    "gulp-autowatch": "0.0.1",
+    "gulp-autowatch": "^1.0.0",
     "gulp-cached": "^1.0.1",
-    "gulp-coffee": "^2.2.0",
     "gulp-combine-media-queries": "^0.2.0",
     "gulp-concat": "^2.1.7",
     "gulp-csso": "^1.0.0",
@@ -49,7 +48,7 @@
     "gulp-jshint": "^1.4.0",
     "gulp-jsonlint": "^1.0.1",
     "gulp-livereload": "^3.5.0",
-    "gulp-minify-html": "^0.1.0",
+    "gulp-minify-html": "^1.0.0",
     "gulp-nodemon": "^1.0.5",
     "gulp-react": "^2.0.0",
     "gulp-sourcemaps": "^1.2.8",
@@ -61,8 +60,10 @@
     "mochify": "^2.1.0",
     "mongoose-test-utils": "0.0.2",
     "nib": "^1.1.0",
+    "react": "^0.12.2",
     "rimraf": "^2.2.5",
     "should": "^5.0.0",
+    "stylify": "contra/stylify#resolve-uses",
     "stylus-normalize": "^3.0.3",
     "supertest": "^0.15.0",
     "vinyl-buffer": "^1.0.0",
@@ -75,6 +76,17 @@
     "test": "npm run test-server && npm run test-client",
     "build": "gulp",
     "start": "node ./server"
+  },
+  "browserify": {
+    "transform": [
+      "stylify"
+    ]
+  },
+  "stylify": {
+    "use": [
+      "nib",
+      "jeet"
+    ]
   },
   "engines": {
     "node": ">= 0.9"

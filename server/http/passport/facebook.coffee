@@ -29,12 +29,13 @@ handleLogin = (accessToken, refreshToken, profile, done) ->
   q.exec (err, user) ->
     return done err if err?
     if user?
-      handleExistingLogin user, done
+      handleExistingLogin user, theoreticalUser, done
     else
       handleFirstLogin theoreticalUser, done
 
 # login handler for users who have logged in before
-handleExistingLogin = (user, cb) ->
+handleExistingLogin = (user, theoreticalUser, cb) ->
+  user.set theoreticalUser
   user.set 'firstLogin', false
   user.save cb
 

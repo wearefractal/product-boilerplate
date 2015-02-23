@@ -1,5 +1,5 @@
-{DOM, ChildView, view} = require 'fission'
-Navbar = require '../../components/Navbar'
+{DOM, ChildView, view, createFactory} = require 'fission'
+Navbar = createFactory require 'components/components/Navbar'
 me = require '../../me'
 
 links = [
