@@ -1,5 +1,5 @@
-{DOM, view, PropTypes} = require 'fission'
-Splash = require '../../components/Splash'
+{DOM, view, PropTypes, createFactory} = require 'fission'
+Splash = createFactory require 'components/components/Splash'
 
 module.exports = view
   displayName: 'Splash'
