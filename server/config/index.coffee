@@ -1,27 +1,20 @@
 # TODO: split this out
-cc = require 'config-chain'
+merge = require 'lodash.merge'
 {join} = require 'path'
 {argv} = require 'optimist'
 env = argv.env or process.env.NODE_ENV or 'development'
 
-configWithEnv = join __dirname, "#{env}.json"
-configDefault = join __dirname, 'default.json'
-logFile = join __dirname, "#{env}.log"
+configWithEnv = require "./#{env}"
+configDefault = require './default'
+logFile = join __dirname, "../#{env}.log"
 
-hardcoded =
-  logFile: logFile
-  port: process.env.PORT
-  database: process.env.MONGO_URL
+conf = merge configDefault, configWithEnv
 
-# stupid fucking hack because config-chain sucks dick
-delete hardcoded[k] for k,v of hardcoded when !v?
-
-conf = cc argv, cc.env('app_'), hardcoded, configWithEnv, configDefault
-
-out = conf.snapshot
-delete out.$0
+conf.logFile = logFile
+conf.env = env
+conf.port = conf.port or process.env.PORT
+conf.database = conf.database or process.env.MONGO_URL
+conf.pubdir = join __dirname, '../../public'
 
 # computed config here
-out.pubdir = join __dirname, '../../public'
-
-module.exports = out
+module.exports = conf
