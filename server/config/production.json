@@ -1,9 +1,0 @@
-{
-  "cache": true,
-  "database": "mongodb://localhost:27017/app_prod",
-  "redis": {
-    "host": "your-host-here",
-    "pass": "your-password-here",
-    "dbIndex": 0
-  }
-}

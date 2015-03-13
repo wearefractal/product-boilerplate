@@ -1,9 +1,0 @@
-{
-  "debug": true,
-  "database": "mongodb://localhost:27017/app_dev",
-  "redis":{
-    "host": "localhost",
-    "pass": "",
-    "dbIndex": 2
-  }
-}
