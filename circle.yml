@@ -1,0 +1,44 @@
+general:
+  branches:
+    only:
+      - master
+      - staging
+      - production
+
+machine:
+  node:
+    version: 0.10.38
+
+dependencies:
+  override:
+    - npm i npm@2.8 -g
+    - wget https://raw.githubusercontent.com/tj/n/master/bin/n
+    - chmod +x ./n
+    - sudo ./n io 1.7.1
+    - npm cache rm
+    - rm -rf node_modules
+    - NODE_ENV=development npm install --loglevel http
+
+test:
+  pre:
+    - npm i -g gulpjs/gulp-cli#4.0
+
+deployment:
+  development:
+    branch: master
+    commands:
+      - NODE_ENV=development gulp build
+      - ./scripts/deploy_development
+
+  staging:
+    branch: staging
+    commands:
+      - NODE_ENV=production gulp build
+      - ./scripts/deploy_staging
+
+  production:
+    branch: production
+    commands:
+      - NODE_ENV=production gulp build
+      - ./scripts/deploy_prod
+
