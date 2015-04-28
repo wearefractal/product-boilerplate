@@ -4,13 +4,13 @@ css = require './index.styl'
 
 module.exports = component
   displayName: 'CircleIcon'
+  css: css
   propTypes:
     text: PropTypes.oneOfType([
       PropTypes.string
       PropTypes.number
     ]).isRequired
     background: PropTypes.string
-  css: css
   getDefaultProps: ->
     o =
       background: '#7f8c8d'
