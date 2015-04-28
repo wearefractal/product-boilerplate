@@ -1,7 +1,6 @@
 config = require '../../config'
 
 express = require 'express'
-
 compress = require 'compression'
 methodOverride = require 'method-override'
 cookieParser = require 'cookie-parser'
@@ -10,15 +9,11 @@ errorHandler = require 'errorhandler'
 bodyParser = require 'body-parser'
 staticFiles = require 'serve-static'
 session = require 'express-session'
-logger = require 'morgan'
 
 sessionStore = require './sessionStore'
 
 app = express()
 app.disable 'x-powered-by'
-
-if config.debug
-  app.use logger 'dev'
 
 app.use errorHandler()
 app.use responseTime()

@@ -1,8 +1,10 @@
 {DOM, view, PropTypes, createFactory} = require 'fission'
 Splash = createFactory require 'components/components/Splash'
+css = require './index.styl'
 
 module.exports = view
   displayName: 'Splash'
+  css: css
   render: ->
     return Splash
       header: 'Splash'

@@ -1,5 +1,7 @@
 {component, DOM, PropTypes} = require 'fission'
 
+css = require './index.styl'
+
 module.exports = component
   displayName: 'CircleIcon'
   propTypes:
@@ -8,7 +10,7 @@ module.exports = component
       PropTypes.number
     ]).isRequired
     background: PropTypes.string
-
+  css: css
   getDefaultProps: ->
     o =
       background: '#7f8c8d'
