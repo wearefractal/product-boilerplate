@@ -11,6 +11,7 @@ htmlmin = require 'gulp-minify-html'
 uglify = require 'gulp-uglify'
 reload = require 'gulp-livereload'
 cache = require 'gulp-cached'
+replace = require 'gulp-replace'
 jsonlint = require 'gulp-jsonlint'
 sourcemaps = require 'gulp-sourcemaps'
 
@@ -28,6 +29,9 @@ browserify = require 'browserify'
 watchify = require 'watchify'
 
 production = false
+
+# version
+{version} = require './package.json'
 
 # paths
 paths =
@@ -85,6 +89,7 @@ gulp.task 'config', ->
 gulp.task 'html', ->
   gulp.src paths.html
     .pipe cache 'html'
+    .pipe replace 'VERSION', version
     .pipe gif production, htmlmin()
     .pipe gulp.dest './public'
     .pipe reload()
