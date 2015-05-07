@@ -1,7 +1,7 @@
 {model} = require 'fission'
 
 module.exports = model
-  url: '/v1/users'
+  urlRoot: '/v1/users'
   props:
     id: 'string'
     fbid: 'string'
