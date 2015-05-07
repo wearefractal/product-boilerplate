@@ -4,7 +4,7 @@ mongoose = require 'mongoose'
 db = require '../db'
 config = require '../config'
 
-User = db.model 'User'
+{User} = db.models
 
 should = require 'should'
 require 'mocha'

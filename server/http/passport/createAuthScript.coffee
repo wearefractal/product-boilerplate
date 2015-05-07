@@ -1,5 +1,5 @@
 db = require '../../db'
-User = db.model 'User'
+{User} = db.models
 
 module.exports = (user, done) ->
   unless user?

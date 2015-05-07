@@ -4,7 +4,7 @@ config = require '../../config'
 db = require '../../db'
 dbUtils = require 'mongoose-test-utils'
 
-User = db.model 'User'
+{User} = db.models
 
 request = require 'supertest'
 should = require 'should'
