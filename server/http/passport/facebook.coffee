@@ -1,11 +1,12 @@
 db = require '../../db'
-User = db.model 'User'
 passport = require 'passport'
 ppfb = require 'passport-facebook'
-FacebookStrategy = ppfb.Strategy
 config = require '../../config'
 app = require '../express'
 express = require 'express'
+
+FacebookStrategy = ppfb.Strategy
+{User} = db.models
 
 # cherry pick fields of facebook json to make a user profile
 profileToUser = (profile, accessToken) ->

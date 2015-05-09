@@ -1,6 +1,6 @@
 isObjectId = require '../../lib/isObjectId'
 db = require '../../db'
-User = db.model 'User'
+{User} = db.models
 
 canModify = ['phone']
 
@@ -12,7 +12,7 @@ module.exports = (req, res, next) ->
 
   # dont allow modification of reserved fields
   # canModify is the whitelist here
-  delete req.body[k] for k,v of req.body when canModify.indexOf(k) is -1
+  delete req.body[k] for k, v of req.body when !~canModify.indexOf k
 
   q = User.findById req.params.id
   q.exec (err, user) ->

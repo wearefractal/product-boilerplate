@@ -1,9 +1,9 @@
 db = require '../../db'
-User = db.model 'User'
 passport = require 'passport'
 config = require '../../config'
 app = require '../express'
 createAuthScript = require './createAuthScript'
+{User} = db.models
 
 app.use passport.initialize()
 app.use passport.session()
