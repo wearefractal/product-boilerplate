@@ -2,6 +2,8 @@
 
 css = require './index.styl'
 
+# This is just a sample
+
 module.exports = component
   displayName: 'CircleIcon'
   css: css

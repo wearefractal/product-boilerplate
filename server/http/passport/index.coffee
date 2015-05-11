@@ -1,14 +1,14 @@
-db = require '../../db'
 passport = require 'passport'
 config = require '../../config'
 app = require '../express'
 createAuthScript = require './createAuthScript'
+db = require '../../db'
 {User} = db.models
 
 app.use passport.initialize()
 app.use passport.session()
 
-app.get '/logout', (req, res) ->
+app.get '/auth/logout', (req, res) ->
   req.logout()
   res.redirect '/'
 

@@ -1,10 +1,16 @@
-winston = require 'winston'
+pmx = require('pmx').init()
+log = require './lib/log'
 config = require './config'
-server = require './http'
 
-winston.log 'info', 'Starting with config', config
+# Start server
+server = require './http'
+db = require './db'
+{User} = db.models
 
 server.listen config.port, ->
-  winston.log 'info', "Server running on #{config.port}"
+  log.info 'Server running'
+
+process.on 'uncaughtException', (e) ->
+  log.error e
 
 module.exports = server

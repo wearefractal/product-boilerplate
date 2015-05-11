@@ -1,14 +1,27 @@
 {Schema} = require 'mongoose'
-formatFields = require 'mongoose-format-fields'
+format_fields = require 'mongoose-format-fields'
+calcAge = require '../lib/calcAge'
 
 Model = new Schema
+  role:
+    grants: ['admin']
+    type: String
+    enum: ['pleb', 'admin']
+    default: 'pleb'
+
   # fb fields
   fbid:
     grants: ['admin', 'self']
     type: String
     required: true
-    index:
-      unique: true
+
+  email:
+    grants: ['admin', 'self']
+    type: String
+
+  token:
+    grants: ['admin']
+    type: String
 
   name:
     grants: ['admin', 'self']
@@ -25,15 +38,11 @@ Model = new Schema
     type: String
     required: true
 
-  token:
-    grants: ['admin', 'self']
-    type: String
-    required: true
-
   gender:
     grants: 'public'
     type: String
     lowercase: true
+    enum: ['female', 'male']
 
   timezone:
     grants: ['admin', 'self']
@@ -44,46 +53,59 @@ Model = new Schema
     type: String
 
   verified:
-    grants: ['admin', 'self']
+    grants: ['admin']
     type: Boolean
 
   location:
     grants: 'public'
     type: String
-    default: 'Earth'
+    maxlength: 100
 
   bio:
     grants: 'public'
     type: String
+    maxlength: 140
 
-  created:
+  birthday:
     grants: ['admin', 'self']
+    type: Date
+
+  # datetime markers
+  created:
+    grants: ['admin']
     type: Date
     default: Date.now
 
   lastModified:
-    grants: ['admin', 'self']
+    grants: ['admin']
     type: Date
     default: Date.now
 
-  # custom fields here
-  phone:
-    grants: ['admin', 'self']
-    type: String
-    validate: /^\d{10}$/
-    unique: true
+  firstLogin:
+    grants: 'public'
+    type: Boolean
+    default: true
+
+  lastLogin:
+    grants: 'public'
+    type: Date
+    default: Date.now
+
+Model.virtual('finishedSetup').get ->
+  @age? and @gender? and @location?
 
 Model.virtual('image').get ->
-  return "http://graph.facebook.com/#{@fbid}/picture?height=800&type=normal&width=800"
+  return "/v1/users/#{@id}/image"
 
-Model.set 'toJSON',
-  getters: true
-  virtuals: true
+Model.virtual('age').get ->
+  return null unless @birthday?
+  return calcAge @birthday
 
-Model.set 'toObject',
-  getters: true
-  virtuals: true
-Model.set 'strict', true
+Model.path('birthday').validate (value, next) ->
+  age = calcAge @birthday
+  return next new Error('You must be 18 or older to use glance') unless age >= 18
+  return next new Error('You must be 55 or younger to use glance') unless age <= 55
+  next()
 
 Model.pre 'save', (next) ->
   @lastModified = Date.now()
@@ -91,6 +113,10 @@ Model.pre 'save', (next) ->
 
 Model.set 'id_grants', 'public'
 Model.set 'id_output', 'id'
-Model.plugin formatFields
+Model.set 'toJSON', {getters:true, virtuals:true}
+Model.set 'toObject', {getters:true, virtuals:true}
+Model.set 'strict', true
+
+Model.plugin format_fields
 
 module.exports = Model

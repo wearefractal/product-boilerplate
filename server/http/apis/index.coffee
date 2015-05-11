@@ -1,19 +1,27 @@
-config = require '../../config'
 app = require '../express'
-winston = require 'winston'
+log = require '../../lib/log'
 pluralize = require 'pluralize'
-
-requireDir = require 'require-dir'
 path = require 'path'
+requireDir = require 'require-dir'
+pkg = require '../../../package'
+config = require '../../config'
+
 resDir = path.join __dirname, '../../resources'
 resources = requireDir resDir, recurse: true
 
 acceptable = ['getAll', 'get', 'post', 'put', 'patch', 'delete', 'options']
 
 registerRoute = (method, route, fns...) ->
-  winston.log 'info', "#{method.toUpperCase()} #{route} registered"
+  log.info "#{method.toUpperCase()} #{route} registered"
   app[method] route, fns...
   return app
+
+infoEndpoint = (req, res, next) ->
+  res.json
+    name: pkg.name
+    version: pkg.version
+
+registerRoute 'get', config.apiPrefix, infoEndpoint
 
 # Actual APIs
 for resource, handlers of resources
@@ -27,6 +35,11 @@ for resource, handlers of resources
       else
         registerRoute method, "#{config.apiPrefix}/#{pluralized}/:id", fn
     else
-      registerRoute (fn.method or 'post'), "#{config.apiPrefix}/#{pluralized}/:id/#{method}", fn
+      if fn.standalone
+        customEndpoint = "#{config.apiPrefix}/#{pluralized}/#{method}"
+      else
+        customEndpoint = "#{config.apiPrefix}/#{pluralized}/:id/#{method}"
+
+      registerRoute (fn.method or 'post'), customEndpoint, fn
 
 module.exports = app

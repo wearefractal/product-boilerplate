@@ -1,6 +1,6 @@
 module.exports =
   debug: true
-  database: 'mongodb://localhost:27017/product_dev'
+  database: 'mongodb://localhost:27017/product_local'
   facebook:
     id: ''
     secret: ''
@@ -8,4 +8,4 @@ module.exports =
   redis:
     host: 'localhost'
     pass: ''
-    dbIndex: 2
+    dbIndex: 1
