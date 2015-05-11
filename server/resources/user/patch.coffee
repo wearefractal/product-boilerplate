@@ -14,7 +14,7 @@ writeChanges = (user, changes, req, res) ->
   user.set 'firstLogin', false
   user.save (err, nuser) ->
     return sendError res, err if err?
-    res.json nuser.format()
+    res.json nuser.format ['self']
 
 module.exports = (req, res, next) ->
   return res.status(403).end() unless req.isAuthenticated()

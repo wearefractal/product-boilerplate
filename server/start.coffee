@@ -8,7 +8,7 @@ db = require './db'
 {User} = db.models
 
 server.listen config.port, ->
-  log.info 'Server running'
+  log.info 'Server running on', config.port
 
 process.on 'uncaughtException', (e) ->
   log.error e

@@ -1,5 +1,5 @@
 module.exports =
   port: 9090
-  cookieSecret: 'datingistite'
+  cookieSecret: 'appsaretite'
   name: 'app'
   apiPrefix: '/v1'

@@ -1,7 +1,7 @@
 module.exports =
   cache: true
   port: 1337
-  database: 'mongodb://localhost:27017/product_prod'
+  database: 'mongodb://localhost:27017/product_staging'
   facebook:
     id: ''
     secret: ''
