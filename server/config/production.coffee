@@ -1,4 +1,3 @@
-
 module.exports =
   cache: true
   port: 1337
@@ -7,7 +6,6 @@ module.exports =
     id: ''
     secret: ''
     callback: '/auth/facebook/callback'
-
   redis:
     host: 'localhost'
     pass: ''

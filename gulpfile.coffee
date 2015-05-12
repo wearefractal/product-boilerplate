@@ -1,9 +1,11 @@
 # core
 gulp = require 'gulp'
+gutil = require 'gulp-util'
 
 # stream utilities
 gif = require 'gulp-if'
 path = require 'path'
+rimraf = require 'rimraf'
 
 # plugins
 imagemin = require 'gulp-imagemin'
@@ -12,23 +14,25 @@ uglify = require 'gulp-uglify'
 reload = require 'gulp-livereload'
 cache = require 'gulp-cached'
 replace = require 'gulp-replace'
-jsonlint = require 'gulp-jsonlint'
 sourcemaps = require 'gulp-sourcemaps'
 
 # misc
 nodemon = require 'gulp-nodemon'
 autowatch = require 'gulp-autowatch'
 nib = require 'nib'
-jeet = require 'jeet'
 
 # browserify crap
 source = require 'vinyl-source-stream'
 buffer = require 'vinyl-buffer'
 coffeeify = require 'coffeeify'
+envify = require 'envify'
 browserify = require 'browserify'
 watchify = require 'watchify'
 
-production = false
+production = process.env.NODE_ENV is 'production'
+staging = process.env.NODE_ENV is 'staging'
+development = process.env.NODE_ENV is 'development'
+local = !production and !staging and !development
 
 # version
 {version} = require './package.json'
@@ -36,12 +40,14 @@ production = false
 # paths
 paths =
   img: './client/img/**/*'
+  vendor: './client/vendor/**/*'
+  fonts: './client/fonts/**/*'
   bundle: './client/index.coffee'
   html: './client/**/*.html'
-  config: './server/config/*.json'
 
 gulp.task 'server', (cb) ->
   watcher = nodemon
+    verbose: false
     script: './server'
     watch: ['./server']
     ext: 'js json coffee'
@@ -61,45 +67,60 @@ args =
   packageCache: {}
   extensions: ['.coffee']
 
-bundler = watchify browserify paths.bundle, args
+bundler = browserify paths.bundle, args
+bundler = watchify bundler if local
 bundler.transform coffeeify
+bundler.transform envify
+
+gulp.task 'rimraf', (cb) ->
+  rimraf.sync './public'
+  cb()
+
+reportError = (err) ->
+  gutil.log gutil.colors.red err.message
+  gutil.beep()
 
 bundle = ->
   bundler.bundle()
-    .once 'error', (err) ->
-      console.error err.message
+    .on 'error', reportError
     .pipe source 'index.js'
     .pipe buffer()
     .pipe cache 'js'
     .pipe sourcemaps.init
       loadMaps: true
-    .pipe gif production, uglify()
+    .pipe uglify()
     .pipe sourcemaps.write '.'
     .pipe gulp.dest './public'
-    .pipe gif '*.js', reload()
+    .pipe gif '*.js', reload quiet: true
 
 gulp.task 'js', bundle
-
-gulp.task 'config', ->
-  gulp.src paths.config
-    .pipe cache 'config'
-    .pipe jsonlint()
-    .pipe jsonlint.reporter()
 
 gulp.task 'html', ->
   gulp.src paths.html
     .pipe cache 'html'
-    .pipe replace 'VERSION', version
-    .pipe gif production, htmlmin()
+    .pipe replace '$CACHE_BUST', String Date.now()
+    .pipe htmlmin()
     .pipe gulp.dest './public'
-    .pipe reload()
+    .pipe reload quiet: true
 
 gulp.task 'img', ->
   gulp.src paths.img
     .pipe cache 'img'
     .pipe imagemin()
     .pipe gulp.dest './public/img'
-    .pipe reload()
+    .pipe reload quiet: true
+
+gulp.task 'vendor', ->
+  gulp.src paths.vendor
+    .pipe cache 'vendor'
+    .pipe gulp.dest './public/vendor'
+    .pipe reload quiet: true
+
+gulp.task 'fonts', ->
+  gulp.src paths.fonts
+    .pipe cache 'fonts'
+    .pipe gulp.dest './public/fonts'
+    .pipe reload quiet: true
 
 gulp.task 'watch', (cb) ->
   reload.listen()
@@ -107,5 +128,5 @@ gulp.task 'watch', (cb) ->
   autowatch gulp, paths
   cb()
 
-gulp.task 'build', gulp.parallel 'html', 'img', 'js'
-gulp.task 'default', gulp.series 'config', 'server', 'watch', 'build'
+gulp.task 'build', gulp.parallel 'html', 'img', 'vendor', 'fonts', 'js'
+gulp.task 'default', gulp.series 'rimraf', 'build', 'server', 'watch'

@@ -1,31 +1,26 @@
-config = require '../../config'
-
 express = require 'express'
+
 compress = require 'compression'
 methodOverride = require 'method-override'
 cookieParser = require 'cookie-parser'
-responseTime = require 'response-time'
 errorHandler = require 'errorhandler'
 bodyParser = require 'body-parser'
-staticFiles = require 'serve-static'
 session = require 'express-session'
 
+log = require '../../lib/log'
 sessionStore = require './sessionStore'
+config = require '../../config'
 
 app = express()
 app.disable 'x-powered-by'
 
 app.use errorHandler()
-app.use responseTime()
 app.use compress()
 app.use methodOverride()
-app.use bodyParser.json strict: true
+app.use bodyParser.json
+  strict: true
+  limit: '10mb'
 app.use cookieParser config.cookieSecret
-app.use staticFiles config.pubdir
-
-app.use (err, req, res, next) ->
-  console.error err.stack
-  res.send 500, 'Something broke!'
 
 app.use session
   store: sessionStore
@@ -35,5 +30,9 @@ app.use session
   saveUninitialized: false
   cookie:
     maxAge: 31536000000
+
+app.use (err, req, res, next) ->
+  log.fatal err.stack
+  res.send 500, 'Something broke!'
 
 module.exports = app

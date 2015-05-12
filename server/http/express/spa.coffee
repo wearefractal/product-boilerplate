@@ -1,9 +1,12 @@
+{join} = require 'path'
+staticFiles = require 'serve-static'
 app = require './'
 config = require '../../config'
-{join} = require 'path'
 idxFile = join config.pubdir, 'index.html'
 
-# page.js crap
+if config.env is 'local'
+  app.use staticFiles config.pubdir
+
 app.get '/*', (req, res) ->
   res.sendFile idxFile
 
