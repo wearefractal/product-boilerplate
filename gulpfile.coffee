@@ -30,9 +30,8 @@ browserify = require 'browserify'
 watchify = require 'watchify'
 
 production = process.env.NODE_ENV is 'production'
-staging = process.env.NODE_ENV is 'staging'
 development = process.env.NODE_ENV is 'development'
-local = !production and !staging and !development
+local = !production and !development
 
 # version
 {version} = require './package.json'
@@ -70,7 +69,9 @@ args =
 bundler = browserify paths.bundle, args
 bundler = watchify bundler if local
 bundler.transform coffeeify
-bundler.transform envify
+bundler.transform
+  global: true
+, envify
 
 gulp.task 'rimraf', (cb) ->
   rimraf.sync './public'
@@ -88,7 +89,7 @@ bundle = ->
     .pipe cache 'js'
     .pipe sourcemaps.init
       loadMaps: true
-    .pipe uglify()
+    .pipe gif !local, uglify()
     .pipe sourcemaps.write '.'
     .pipe gulp.dest './public'
     .pipe gif '*.js', reload quiet: true
