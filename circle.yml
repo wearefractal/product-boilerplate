@@ -11,10 +11,10 @@ machine:
 
 dependencies:
   override:
-    - npm i npm@2.8 -g
+    - npm i npm@2.10 -g
     - wget https://raw.githubusercontent.com/tj/n/master/bin/n
     - chmod +x ./n
-    - sudo ./n io 1.7.1
+    - sudo ./n io 2.0.2
     - npm cache rm
     - rm -rf node_modules
     - NODE_ENV=development npm install --loglevel http
@@ -29,12 +29,6 @@ deployment:
     commands:
       - NODE_ENV=development gulp build
       - ./scripts/deploy_development
-
-  staging:
-    branch: staging
-    commands:
-      - NODE_ENV=production gulp build
-      - ./scripts/deploy_staging
 
   production:
     branch: production
