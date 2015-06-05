@@ -113,10 +113,13 @@ Model.pre 'save', (next) ->
 
 Model.set 'id_grants', 'public'
 Model.set 'id_output', 'id'
-Model.set 'toJSON', {getters:true, virtuals:true}
-Model.set 'toObject', {getters:true, virtuals:true}
+Model.set 'toJSON',
+  getters: true
+  virtuals: true
+Model.set 'toObject',
+  getters: true
+  virtuals: true
 Model.set 'strict', true
-
 Model.plugin format_fields
 
 module.exports = Model
