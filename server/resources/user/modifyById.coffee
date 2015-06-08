@@ -1,10 +1,16 @@
 db = require '../../db'
 {User} = db.models
 
-canModify = [
-  'gender', 'birthday',
-  'bio', 'location'
-]
+canModify =
+  gender: true
+  birthday: true
+  bio: true
+  location: true
+
+filterData = (data) ->
+  out = {}
+  out[k] = v for k, v of opt.data when canModify[k]
+  return out
 
 writeChanges = (user, changes, cb) ->
   user.set changes
@@ -22,14 +28,10 @@ module.exports = (user, opt, cb) ->
   return cb status: 403 unless opt.id is String(user._id)
   return cb status: 400 unless typeof opt.data is 'object'
 
-  # dont allow modification of reserved fields
-  # canModify is the whitelist here
-  delete opt.data[k] for k, v of opt.data when !~canModify.indexOf k
-
   q = User.findById opt.id
   q.exec (err, user) ->
     return cb err if err?
-    writeChanges user, opt.data, (err, data) ->
+    writeChanges user, filterData(opt.data), (err, data) ->
       return cb err if err?
       cb null,
         status: 200
