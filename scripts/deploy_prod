@@ -1,0 +1,10 @@
+#!/bin/bash
+
+HOST='example.com'
+NAME='projectname'
+
+chmod 600 ./server/keys/www_rsa
+
+rsync -avzd --delete-before -e 'ssh -i ./server/keys/www_rsa -oIdentitiesOnly=yes -oStrictHostKeyChecking=no' --exclude 'node_modules' --exclude '*.map' . www@$HOST:/www/$NAME
+
+ssh -oStrictHostKeyChecking=no -oIdentitiesOnly=yes -i ./server/keys/www_rsa www@$HOST '. ~/.bashrc; /www/'$NAME'/scripts/servers-update.sh; echo $?'
