@@ -9,7 +9,7 @@ canModify =
 
 filterData = (data) ->
   out = {}
-  out[k] = v for k, v of opt.data when canModify[k]
+  out[k] = v for k, v of data when canModify[k]
   return out
 
 writeChanges = (user, changes, cb) ->
