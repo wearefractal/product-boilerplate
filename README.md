@@ -6,7 +6,7 @@
 
 ### Resources
 
-Each resource (every noun in your system, ie: user, comment, video, etc.) that you would like to be exposed should have a folder within the `server/resources` (non-plural, pluralizatin is done automatially).
+Each resource (every noun in your system, ie: user, comment, video, etc.) that you would like to be exposed should have a folder within the `server/resources` (non-plural, pluralization is done automatially).
 
 For the these examples, we will use the resource `thread` in the folder `server/resources/thread` as our example.
 
