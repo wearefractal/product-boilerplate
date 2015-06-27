@@ -6,9 +6,9 @@
 
 ### Resources
 
-Each resource (every noun in your system, ie: user, comment, video, etc.) that you would like to be exposed should have a folder within the `server/resources` (non-plural, we that is handled for you).
+Each resource (every noun in your system, ie: user, comment, video, etc.) that you would like to be exposed should have a folder within the `server/resources` (non-plural, pluralizatin is done automatially).
 
-For the following examples, we will use the resource `thread` in the folder `server/resources/thread` as our example.
+For the these examples, we will use the resource `thread` in the folder `server/resources/thread` as our example.
 
 #### Resource Format
 
@@ -32,6 +32,8 @@ module.exports = (user, opt, cb) ->
     - Note: This data should be JSON serializable as it is passed to JSON.stringify
 
 #### HTTP Verbs
+
+These are the standard file names, what they do, and what HTTP endpoint they will expose
 
 - findById = GET /threads/12345
   - Operation: Look up a resource by a unique ID
