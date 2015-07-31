@@ -11,10 +11,10 @@ machine:
 
 dependencies:
   override:
-    - npm i npm@2.10 -g
+    - npm i npm@2.13.2 -g
     - wget https://raw.githubusercontent.com/tj/n/master/bin/n
     - chmod +x ./n
-    - sudo ./n io 2.0.2
+    - sudo ./n io 2.5.0
     - npm cache rm
     - rm -rf node_modules
     - NODE_ENV=development npm install --loglevel http
