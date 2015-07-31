@@ -7,19 +7,16 @@ if [ "$(whoami)" != "www" ]; then
   exit 1
 fi
 
-
-NAME='projectname'
-
-cd /www/$NAME
+cd /www/app
 
 pm2 kill
 
 echo "$SERVER"
 
 if [ "$SERVER" = "lb-server" ]; then
-  pm2 start /www/$NAME/server/ -n www
+  pm2 start /www/app/server/ -n www
 else
-  pm2 start /www/$NAME/server/ -n www -i 2
+  pm2 start /www/app/server/ -n www -i 2
 fi
 
 exit 0

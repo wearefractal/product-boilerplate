@@ -7,9 +7,7 @@ if [ "$(whoami)" != "www" ]; then
   exit 1
 fi
 
-NAME='projectname'
-
-cd /www/$NAME
+cd /www/app
 
 npm update --production
 
