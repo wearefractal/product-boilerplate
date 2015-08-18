@@ -4,17 +4,21 @@
 bgColor = #ecf0f1
 txtColor = #000
 
+*, *:before, *:after
+  box-sizing: border-box
+
 html, body
   margin: 0
   padding: 0
   height: 100%
   width: 100%
-
-body
-  background-color: bgColor
+  margin: 0
+  padding: 0
   color: txtColor
-
   font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif
   font-weight: 300
   font-smoothing: antialiased
   text-rendering: optimizeLegibility
+
+body
+  background: bgColor
