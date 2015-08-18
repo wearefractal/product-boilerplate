@@ -11,5 +11,5 @@ module.exports = view
       subheader: 'subheader'
       background: '/img/bg.jpg'
       info: [header: 'Header', content: 'Content here']
-      linkUrl: '/auth/facebook'
-      linkText: 'Login with facebook'
+      loginUrl: '/auth/facebook'
+      loginText: 'Login with facebook'
