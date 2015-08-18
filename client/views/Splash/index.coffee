@@ -12,4 +12,7 @@ module.exports = view
       background: '/img/bg.jpg'
       info: [header: 'Header', content: 'Content here']
       loginUrl: '/auth/facebook'
-      loginText: 'Login with facebook'
+      loginText: [
+        DOM.i className: 'fa fa-facebook-official'
+        'Log in with Facebook'
+      ]
