@@ -49,3 +49,12 @@ These are the standard file names, what they do, and what HTTP endpoint they wil
 - create = POST /threads
   - Operation: Create a new resource
   - Tip: Use the body (`opt.data` for the contents of the resource)
+
+#### Custom Endpoint
+
+Defining a non-standard endpoint is done by adding the following to the end of your file:
+```coffee
+module.exports.http =
+  method: 'get' # get, post, put, patch, delete
+  plural: false # true, false
+```
